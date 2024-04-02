@@ -1,0 +1,35 @@
+version: '3'
+services:
+  pgsql:
+    image: postgres:16.0-alpine
+    container_name: pgsql
+    env_file:
+      - ./docker/psql.env
+    restart: unless-stopped
+    ports:
+      - "54320:5432"
+    volumes:
+      - ./docker/var/psql/data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - "5018:80"
+    volumes:
+      - ./docker/var/pgadmin:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=mail@example.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+
+  redis-chache:
+    image: redis:7.2.3-alpine
+    container_name: redis-cache
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_HOST_PASSWORD"
+    env_file:
+      - ./docker/redis-cache.env
+    ports:
+      - "63791:6379"
+    restart: unless-stopped
+    volumes:
+      - ./docker/var/redis/_cache/data:/data
