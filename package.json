@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.13",
     "not-synchronous": "^1.1.0",
+    "openpgp": "^5.11.1",
     "socket.io": "^4.7.5",
     "typesdk": "^2.3.4"
   },

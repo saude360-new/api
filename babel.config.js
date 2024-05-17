@@ -15,7 +15,6 @@ module.exports = {
     '@babel/plugin-transform-class-properties',
     ['module-resolver', {
       alias: {
-        '@queues': './src/queues',
         '@shared': './src/shared',
         '@modules': './src/modules',
         '@models': './src/models',

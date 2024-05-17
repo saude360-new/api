@@ -1,6 +1,6 @@
 import { Crypto } from 'typesdk/crypto';
-import { getRandomValues } from 'node:crypto';
 import { strShuffle } from 'typesdk/utils/string';
+import { getRandomValues } from 'cryptx-sdk/core';
 
 
 
@@ -11,7 +11,7 @@ export const UUIDPattern = new RegExp(_UUIDPattern.source, 'i');
 
 export const uuid = () => Crypto.uuid();
 
-export const uuidWithoutSlashes = () => Crypto.uuid().replace(/-/g, '');
+export const uuidWithoutDashes = () => Crypto.uuid().replace(/-/g, '');
 
 
 export function shortId(): string {
@@ -37,5 +37,6 @@ export function shortId(): string {
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/_/g, '')
-    .replace(/-/g, '');
+    .replace(/-/g, '')
+    .slice(0, 12);
 }

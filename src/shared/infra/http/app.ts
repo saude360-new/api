@@ -6,7 +6,7 @@ import type { Writable } from 'typesdk/types';
 
 import * as inet from '@shared/core/inet';
 // import type { UserDocument } from '@models/users';
-import { uuidWithoutSlashes } from '@shared/lib/id';
+import { uuidWithoutDashes } from '@shared/lib/id';
 // import type { SessionDocument } from '@models/sessions';
 
 
@@ -53,7 +53,7 @@ app.use(async (req, res, next) => {
     return query && query.trim().length > 0 ? `?${query}` : '';
   }
 
-  (req as Writable<typeof req>).requestId = uuidWithoutSlashes();
+  (req as Writable<typeof req>).requestId = uuidWithoutDashes();
   
   (req as Writable<typeof req>).inet = {
     ip: inet.extractIPFromRequest(req),

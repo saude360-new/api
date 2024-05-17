@@ -1,6 +1,6 @@
 import { Crypto } from 'typesdk/crypto';
 
-import { shortId, uuid, uuidWithoutSlashes } from '@shared/lib/id';
+import { shortId, uuid, uuidWithoutDashes } from '@shared/lib/id';
 
 
 export abstract class Entity<T> {
@@ -16,12 +16,12 @@ export abstract class Entity<T> {
     this.props = props;
   }
 
-  public static generateId(type: 'short' | 'uuid' | 'uuid-without-slashes'): string {
+  public static generateId(type: 'short' | 'uuid' | 'uuid-without-dashes'): string {
     switch(type) {
       case 'uuid':
         return uuid();
-      case 'uuid-without-slashes':
-        return uuidWithoutSlashes();
+      case 'uuid-without-dashes':
+        return uuidWithoutDashes();
       case 'short':
       default:
         return shortId();

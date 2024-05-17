@@ -27,7 +27,7 @@ export type VariableMap = {
     type: 'string' | 'number' | 'boolean';
     required: boolean;
     default?: string | number | boolean;
-    validate?: 'uuid' | 'uuid-without-slashes' | 'cid' | 'url' | 'email';
+    validate?: 'uuid' | 'uuid-without-dashes' | 'cid' | 'url' | 'email';
     oneOf?: readonly string[];
   }
 }
@@ -127,7 +127,7 @@ export class AbstractVariableResolverService {
             throw new Exception(`VariableResolverService: Environment variable '${prop}' is not a valid UUID`);
           }
           break;
-        case 'uuid-without-slashes':
+        case 'uuid-without-dashes':
           if(!/^[0-9a-f]{32}$/i.test(this._environmentVariables![prop])) {
             throw new Exception(`VariableResolverService: Environment variable '${prop}' is not a valid UUID`);
           }

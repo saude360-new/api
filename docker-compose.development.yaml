@@ -24,12 +24,12 @@ services:
 
   redis-chache:
     image: redis:7.2.3-alpine
-    container_name: redis-cache
+    container_name: redis
     command: /bin/sh -c "redis-server --requirepass $$REDIS_HOST_PASSWORD"
     env_file:
-      - ./docker/redis-cache.env
+      - ./docker/redis.env
     ports:
       - "63791:6379"
     restart: unless-stopped
     volumes:
-      - ./docker/var/redis/_cache/data:/data
+      - ./docker/var/redis/_/data:/data

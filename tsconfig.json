@@ -35,7 +35,6 @@
     "paths": {
       "@models/*": ["./src/models/*"],
       "@modules/*": ["./src/modules/*"],
-      "@queues/*": ["./src/queues/*"],
       "@shared/*": ["./src/shared/*"]
     }
   },

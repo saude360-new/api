@@ -98,31 +98,38 @@ export async function connect(): Promise<Database> {
 }
 
 
-export function safeCache(): RedisClient | undefined {
-  const url = env.getEnvironmentVariable('REDIS_CACHE_URL');
-  if(!url) return undefined;
+export function safeRedis(): RedisClient | null {
+  const host = env.getEnvironmentVariable('REDIS_HOST');
+  const port = parseInt(env.getEnvironmentVariable('REDIS_PORT') || '6379', 10);
+  const pass = env.getEnvironmentVariable('REDIS_PASS');
 
-  try {
-    new URL(url);
-  } catch {
-    return undefined;
-  }
+  if(!host ||
+    !port ||
+    !pass) return null;
 
-  if(env.isProduction()) return new RedisClient(url);
+  if(env.isProduction()) return new RedisClient({
+    host,
+    port,
+    password: pass,
+  });
 
   if(!globalThis.redis) {
-    globalThis.redis = new RedisClient(url);
+    globalThis.redis = new RedisClient({
+      host,
+      port,
+      password: pass,
+    });
   }
 
   return globalThis.redis;
 }
 
 
-export function cache(): RedisClient {
-  const client = safeCache();
+export function redis(): RedisClient {
+  const client = safeRedis();
 
   if(!client) {
-    throw new Error('Missing required environment variables CACHE_REDIS_HOST and CACHE_REDIS_PORT');
+    throw new Error('REDIS_URL is required');
   }
 
   return client;
