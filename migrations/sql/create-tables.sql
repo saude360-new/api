@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS devices (
   serial_number VARCHAR(128) NOT NULL UNIQUE,
   bluetooth_version VARCHAR(12) NOT NULL,
   last_connected TIMESTAMP WITHOUT TIME ZONE NULL,
-  rssi INTEGER NOT NULL DEFAULT 0,
+  rssi INT NOT NULL DEFAULT 0,
   status device_status NOT NULL DEFAULT 'disconnected'::device_status,
   pairing_key TEXT NOT NULL UNIQUE,
   firmware_version VARCHAR(128) NOT NULL,
@@ -154,14 +154,44 @@ JOIN
 
 CREATE INDEX idx_users_email_id ON users(user_id, email_hash);
 CREATE INDEX idx_users_email_id_rev ON users(email_hash, user_id);
+
 CREATE INDEX idx_users_email ON users(email_hash);
 CREATE INDEX idx_users_role ON users(role);
 CREATE INDEX idx_user_metadata_user_id ON user_metadata(user_id);
+
 CREATE INDEX idx_devices_registered_by ON devices(registered_by);
 CREATE INDEX idx_data_exchange_logs_device_id ON data_exchange_logs(device_id);
 CREATE INDEX idx_device_data_device_id ON device_data(device_id);
+
 CREATE INDEX idx_accounts_relationship_patient_id ON accounts_relationship(patient_id);
 CREATE INDEX idx_accounts_relationship_caregiver_id ON accounts_relationship(caregiver_id);
 CREATE INDEX idx_accounts_relationship_device_id ON accounts_relationship(device_id);
 
 -- End Stage C
+
+-- Stage D: CREATE TRIGGERS
+
+CREATE OR REPLACE FUNCTION update_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER
+  update_users_timestamp
+BEFORE
+  UPDATE ON users
+FOR EACH ROW
+  EXECUTE FUNCTION update_timestamp();
+
+CREATE TRIGGER
+  update_devices_timestamp
+BEFORE
+  UPDATE ON devices
+FOR EACH ROW
+  EXECUTE FUNCTION update_timestamp();
+
+-- End Stage D
