@@ -3,7 +3,10 @@ package com.smarthealth.io.smarthealth;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
 import com.smarthealth.io.smarthealth.shared.core.Option;
+import com.smarthealth.io.smarthealth.shared.core.AbstractVariablesResolverService;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 
@@ -18,10 +21,22 @@ class SmarthealthApplicationTests {
     optionalTester.testOptionalCatch();
     optionalTester.testOptionalResolve();
     optionalTester.testUnwrapExpect();
+
+    final SmarthealthApplicationTests environmentTester = new SmarthealthApplicationTests();
+
+    environmentTester.testVariablesResolver();
   }
 
   @Test
   void contextLoads() { }
+
+  @Test
+  void testVariablesResolver() {
+    final AbstractVariablesResolverService env = new AbstractVariablesResolverService();
+    
+    System.out.println(String.format("EN=%s", env.getEnvironmentVariable("EN").unwrap()));
+    assertEquals(env.getEnvironmentVariable("EN").unwrap(), "VAR");
+  }
 
   @Test
   void testSome() {

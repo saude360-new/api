@@ -3,7 +3,8 @@
 !/docker/**/Dockerfile*
 !/docker/docker-compose*.yaml
 
-**/*.git-i.*
+**/*.git-i*
+*.env*
 
 
 /var/**/*
