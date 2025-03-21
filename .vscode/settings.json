@@ -15,4 +15,5 @@
   },
   "java.configuration.updateBuildConfiguration": "interactive",
   "java.compile.nullAnalysis.mode": "interactive",
+  "cSpell.enabled": false,
 }
