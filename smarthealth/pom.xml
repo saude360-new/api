@@ -73,6 +73,20 @@
       <artifactId>postgresql</artifactId>
     </dependency>
 
+    <!-- Java Database Connection Driver -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+
+    <!-- Json em java amem deus -->
+    <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.15.0</version>
+</dependency>
+
 	</dependencies>
 
 	<build>

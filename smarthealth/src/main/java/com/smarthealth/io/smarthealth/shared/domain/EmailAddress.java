@@ -1,4 +1,4 @@
-package com.smarthealth.io.smarthealth.shared.domain;
+/*package com.smarthealth.io.smarthealth.shared.domain;
 
 
 public class EmailAddress {
@@ -12,3 +12,4 @@ public class EmailAddress {
 
   }
 }
+*/
