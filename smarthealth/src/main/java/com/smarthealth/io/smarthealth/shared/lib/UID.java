@@ -1,9 +1,7 @@
 package com.smarthealth.io.smarthealth.shared.lib;
 
-import java.nio.ByteBuffer;
-import java.security.SecureRandom;
-import java.time.Instant;
 import java.util.Random;
+import java.security.SecureRandom;
 
 
 public class UID {
@@ -22,7 +20,7 @@ public class UID {
         return bytesToHex(randomBytes, true);
     }
 
-    public static String generateUUIDv7() {
+    /* public static String generateUUIDv7() {
         long timestamp = Instant.now().toEpochMilli();
         byte[] uuid = new byte[16];
         ByteBuffer.wrap(uuid).putLong(timestamp);
@@ -35,7 +33,7 @@ public class UID {
         uuid[8] |= 0x80;
 
         return bytesToHex(uuid, true);
-    }
+    } */
 
     public static String generateShortId() {
         byte[] randomBytes = new byte[12];
