@@ -24,7 +24,6 @@ public class DatabaseConnection {
       .getEnvironmentVariable("DATABASE_PASS")
       .unwrapExpect("Unable to find database password");
 
-
     this.client = DriverManager.getConnection(postgresUrl, username, password);
   }
 
