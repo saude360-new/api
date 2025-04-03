@@ -1,4 +1,4 @@
-package com.smarthealth.io.smarthealth.shared.domain;
+/*package com.smarthealth.io.smarthealth.shared.domain;
 
 
 public abstract class Entity<TProps> {
@@ -16,4 +16,4 @@ public abstract class Entity<TProps> {
   public Entity(TProps props, String id) {
 
   }
-}
+}*/

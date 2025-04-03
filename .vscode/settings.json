@@ -14,6 +14,6 @@
     "initializer_list": "cpp"
   },
   "java.configuration.updateBuildConfiguration": "interactive",
-  "java.compile.nullAnalysis.mode": "interactive",
+  "java.compile.nullAnalysis.mode": "automatic",
   "cSpell.enabled": false,
 }
