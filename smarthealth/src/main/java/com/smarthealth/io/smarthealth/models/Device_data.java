@@ -17,8 +17,8 @@ public class Device_data {
   @JoinColumn(name = "device_id", nullable = false, unique = true)
   private Devices devices;
 
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sequence", nullable = false)
+  
+    @Column(name = "sequence", nullable = false,updatable = false, insertable = false)
     private int sequence;
 
   public int getSequence() {

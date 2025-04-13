@@ -9,8 +9,11 @@ import jakarta.persistence.*;
   @Table(name = "user_metadata")
   public class User_metadata{
 
-     
-      
+    @Id
+    @Column(name = "user_metadata_row_id",nullable = false,insertable = false,updatable = false)
+    private int user_metadata_row_id;
+    
+
     @OneToOne
     @JoinColumn(name = "user_id", unique = true, nullable = false)
     private User user;
