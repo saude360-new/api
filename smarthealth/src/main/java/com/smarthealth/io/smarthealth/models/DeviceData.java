@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "device_data")
-public class Device_data {
+public class DeviceData {
 
   @Id
   @GeneratedValue( strategy = GenerationType.UUID)

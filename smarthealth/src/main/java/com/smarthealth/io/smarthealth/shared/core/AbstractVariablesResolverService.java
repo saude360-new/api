@@ -12,7 +12,7 @@ import java.util.Map;
 
 // Provides a way to handle abstract variables (such as env vars)
 public class AbstractVariablesResolverService {
-  private static Path findProjectRoot(Path directory) {
+    private static Path findProjectRoot(Path directory) {
     try(DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
       for(Path file : stream) {
         if(Files.isDirectory(file)) {

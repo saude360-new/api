@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "data_exchange_logs")
-public class Data_exchange_logs {
+public class DataExchangeLogs {
   @Id
   @GeneratedValue( strategy = GenerationType.UUID)
       @Column(name = "log_id")
