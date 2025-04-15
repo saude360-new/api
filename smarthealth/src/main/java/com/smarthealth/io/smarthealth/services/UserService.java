@@ -1,7 +1,9 @@
 package com.smarthealth.io.smarthealth.services;
 
 import com.smarthealth.io.smarthealth.models.User;
-import com.smarthealth.io.smarthealth.repositories.UserRepository;
+import com.smarthealth.io.smarthealth.repositories.UserRepository;;
+
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

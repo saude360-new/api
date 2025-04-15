@@ -2,7 +2,7 @@ package com.smarthealth.io.smarthealth.shared.domain;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-// import java.io.InvalidObjectException;
+import java.io.InvalidObjectException;
 
 
 public class EmailAddress {

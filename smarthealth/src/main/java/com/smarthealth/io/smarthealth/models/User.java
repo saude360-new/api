@@ -55,7 +55,7 @@ import java.time.LocalDateTime;
       private LocalDateTime createdAt;
 
           //eu acho que isso precisa poder ser nulo, se não ao criar vc tem que colocar algo
-      @Column(name = "updated_at"/* , nullable = false*/)
+      @Column(name = "updated_at", nullable = false)
       private LocalDateTime updatedAt;
 
   
