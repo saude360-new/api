@@ -17,9 +17,12 @@ public class UserMapper {
     user.setGender(dto.getGender());
     user.setBirthDate(dto.getBirthDate());
 
-    
+    user.setEmailHash("hashed_"+dto.getEmailAddress());
     user.setPasswordDigest("hashed_" + dto.getPassword()); // dado mockado so resolver dps de td pronto
     user.setSalt("saltzinho");
+    user.setPrivateKey("Private key");
+    user.setPublicKey("Public key");
+    user.setSymmetricKey("Symetric key");
     user.setCreatedAt(LocalDateTime.now());
 
     return user;

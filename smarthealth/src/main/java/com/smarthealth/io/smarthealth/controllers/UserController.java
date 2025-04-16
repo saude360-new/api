@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 
 //diz que ela vai receber requisiçoes e devolver json
 @RestController
@@ -47,9 +49,12 @@ public class UserController {
 }
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getById(@PathVariable String id) {
-        return userService.findById(id)
-                .map(UserMapper::toResponse)
-                .orElse(ResponseEntity.notFound().build());
+
+      Optional<User> optionalUser = userService.findById(id);
+      return optionalUser
+              .map(UserMapper::toResponse)
+              .map(ResponseEntity::ok)
+              .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
