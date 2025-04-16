@@ -33,6 +33,10 @@ public class DevicesService {
       return devicesRepository.findByBluetoothChipUid(bluetoothChipUid);
     }
 
+    public Optional<Devices> findByRegisteredBy(String userId){
+      return devicesRepository.findByRegisteredBy(userId);
+    }
+
     public void deleteById(String id) {
       devicesRepository.deleteById(id);
   }

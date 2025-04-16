@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface DevicesRepository extends JpaRepository<Devices, String>{
 
   Optional<Devices> findByBluetoothChipUid(String bluetoothChipUid);
+  Optional<Devices> findByRegisteredBy(String userId);
   
 }
