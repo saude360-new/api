@@ -1,6 +1,9 @@
 package com.smarthealth.io.smarthealth.services;
 
+import com.smarthealth.io.smarthealth.dtos.DevicesCreateDto;
+import com.smarthealth.io.smarthealth.mappers.DevicesMapper;
 import com.smarthealth.io.smarthealth.models.Devices;
+import com.smarthealth.io.smarthealth.models.User;
 import com.smarthealth.io.smarthealth.repositories.DevicesRepository;
 
 import org.springframework.stereotype.Service;
@@ -12,14 +15,22 @@ import java.util.Optional;
 public class DevicesService {
 
   private final DevicesRepository devicesRepository;
+  private final UserService userService;
 
-    public DevicesService(DevicesRepository devicesRepository) {
-        this.devicesRepository = devicesRepository;
-    }
+  public DevicesService(DevicesRepository devicesRepository, UserService userService) {
+    this.devicesRepository = devicesRepository;
+    this.userService = userService;
+}
 
-    public Devices create(Devices devices){
-        return devicesRepository.save(devices);
-    }
+//como o userservice devolve um optiona<user> e o mapper espera um user precisamos fazer essa gambiarra de lançar erro
+public Devices create(DevicesCreateDto dto) {
+  User user = userService.findById(dto.getRegisteredBy()) 
+  .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + dto.getRegisteredBy()));
+
+  Devices device = DevicesMapper.fromDto(dto, user);
+  return devicesRepository.save(device);
+
+}
 
     public List<Devices> findAll(){
       return devicesRepository.findAll();
