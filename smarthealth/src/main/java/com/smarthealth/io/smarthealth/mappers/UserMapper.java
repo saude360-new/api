@@ -6,7 +6,9 @@ import com.smarthealth.io.smarthealth.models.User;
 
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
   
   public static User fromDto(UserCreateDto dto) {

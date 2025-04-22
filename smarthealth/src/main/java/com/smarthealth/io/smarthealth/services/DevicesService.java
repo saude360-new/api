@@ -45,7 +45,7 @@ public Devices create(DevicesCreateDto dto) {
     }
 
     public Optional<Devices> findByRegisteredBy(String userId){
-      return devicesRepository.findByRegisteredBy(userId);
+      return devicesRepository.findByRegisteredByUserId(userId);
     }
 
     public void deleteById(String id) {

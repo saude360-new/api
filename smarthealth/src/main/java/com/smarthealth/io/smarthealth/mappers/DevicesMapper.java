@@ -1,11 +1,12 @@
 package com.smarthealth.io.smarthealth.mappers;
 
-import com.smarthealth.io.smarthealth.models.Devices;
-import com.smarthealth.io.smarthealth.models.User;
+import java.time.LocalDateTime;
+
 import com.smarthealth.io.smarthealth.dtos.DevicesCreateDto;
 import com.smarthealth.io.smarthealth.dtos.DevicesResponseDto;
-
-import java.time.LocalDateTime;
+import com.smarthealth.io.smarthealth.models.Devices;
+import com.smarthealth.io.smarthealth.models.User;
+import com.smarthealth.io.smarthealth.services.UserService;
 
 
 public class DevicesMapper {
@@ -29,17 +30,20 @@ public class DevicesMapper {
   }
   
 
-  public static DevicesResponseDto toResponse(Devices devices,){
+  public static DevicesResponseDto toResponse(Devices devices){
 
     DevicesResponseDto dto = new DevicesResponseDto();
 
-    dto.setDeviceId(null);
-    dto.setDeviceStatus(null);
-    dto.setLastConnected(null);
-    dto.setRegisteredby(null);
+    
+
+    dto.setDeviceId(devices.getDeviceId());
+    dto.setDeviceStatus(devices.getDeviceStatus());
+    dto.setLastConnected(devices.getLastConnected());
+    dto.setRegisteredby(devices.getRegisteredBy().getUserId());
 
 
     return dto;
+  
 
   }
 }

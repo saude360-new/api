@@ -22,11 +22,11 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
  
-    public UserController(UserService userService , UserMapper userMapper) {
+ 
+    public UserController(UserService userService ) {
         this.userService = userService;
-        this.userMapper = userMapper;
+
     }
 
   
@@ -34,19 +34,21 @@ public class UserController {
 
     @PostMapping 
     public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto user) { 
-        User created = userService.create(userMapper.fromDto(user));
-       return ResponseEntity.ok(userMapper.toResponse(created));
+        User created = userService.create(UserMapper.fromDto(user));
+       return ResponseEntity.ok(UserMapper.toResponse(created));
        }
 
 
-       @GetMapping 
-      public ResponseEntity<List<UserResponseDto>> getAll() {
+    @GetMapping 
+    public ResponseEntity<List<UserResponseDto>> getAll() {
     List<User> users = userService.findAll();
     List<UserResponseDto> dtoList = users.stream()
     .map(UserMapper::toResponse) 
             .toList();
     return ResponseEntity.ok(dtoList);
-}
+    }
+
+    
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getById(@PathVariable String id) {
 
