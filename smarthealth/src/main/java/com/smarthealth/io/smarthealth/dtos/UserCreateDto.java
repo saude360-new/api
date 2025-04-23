@@ -28,6 +28,24 @@ public class UserCreateDto {
   @NotBlank
   private String userRole;
 
+  @NotBlank
+  private String emailHash;
+
+  @NotBlank
+  private String passworDigest;
+  
+  @NotBlank
+  private String salt;
+
+  @NotBlank
+  private String symmetricKey;
+
+  @NotBlank
+  private String publicKey;
+
+  @NotBlank
+  private String privateKey;
+
   public String getPassword() {
     return password;
   }

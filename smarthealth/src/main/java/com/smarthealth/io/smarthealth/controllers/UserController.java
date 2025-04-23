@@ -6,7 +6,7 @@ import com.smarthealth.io.smarthealth.dtos.UserCreateDto;
 import com.smarthealth.io.smarthealth.dtos.UserResponseDto;
 import com.smarthealth.io.smarthealth.mappers.UserMapper;
 
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,28 +22,41 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
  
  
-    public UserController(UserService userService ) {
+    public UserController(UserService userService, UserMapper userMapper ) {
         this.userService = userService;
+        this.userMapper = userMapper;
 
     }
 
   
 
 
-    @PostMapping 
-    public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto user) { 
-        User created = userService.create(UserMapper.fromDto(user));
-       return ResponseEntity.ok(UserMapper.toResponse(created));
-       }
+    @PostMapping
+public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto dto) {
+    try {
+        System.out.println("DEBUG: recebendo DTO: " + dto);
+        User entity = userMapper.fromDto(dto);
+        System.out.println("DEBUG: entidade mapeada: " + entity);
+        User saved = userService.create(entity);
+        System.out.println("DEBUG: entidade salva: " + saved);
+        UserResponseDto response = userMapper.toResponse(saved);
+        System.out.println("DEBUG: DTO de resposta: " + response);
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+}
 
 
     @GetMapping 
     public ResponseEntity<List<UserResponseDto>> getAll() {
     List<User> users = userService.findAll();
     List<UserResponseDto> dtoList = users.stream()
-    .map(UserMapper::toResponse) 
+    .map(userMapper::toResponse) 
             .toList();
     return ResponseEntity.ok(dtoList);
     }
@@ -54,7 +67,7 @@ public class UserController {
 
       Optional<User> optionalUser = userService.findById(id);
       return optionalUser
-              .map(UserMapper::toResponse)
+              .map(userMapper::toResponse)
               .map(ResponseEntity::ok)
               .orElse(ResponseEntity.notFound().build());
     }

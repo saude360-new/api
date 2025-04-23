@@ -23,6 +23,8 @@ public class DevicesCreateDto {
   @NotBlank
   private String firmwareVersion;
 
+  
+
 
   public String getBluetoothChipUid() {
     return bluetoothChipUid;
