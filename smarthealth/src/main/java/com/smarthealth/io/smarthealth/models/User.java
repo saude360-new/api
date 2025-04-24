@@ -1,6 +1,8 @@
 package com.smarthealth.io.smarthealth.models;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 //import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
@@ -22,7 +24,7 @@ import java.time.LocalDateTime;
       private String lastName;
 
       @Column(name = "birth_date", nullable = false)
-      private LocalDateTime birthDate;
+      private LocalDate birthDate;
 
       @Column(name = "gender", nullable = false)
       private String gender;
@@ -39,7 +41,7 @@ import java.time.LocalDateTime;
       @Column(name = "salt", nullable = false, unique = true)
       private String salt;
 
-      @Column(name = "user_role", nullable = false)
+      @Column(name = "role", nullable = false)
       private String userRole;
 
       @Column(name = "symmetric_key", nullable = false)
@@ -103,13 +105,13 @@ import java.time.LocalDateTime;
 
 
 
-      public LocalDateTime getBirthDate() {
+      public LocalDate getBirthDate() {
         return birthDate;
       }
 
 
 
-      public void setBirthDate(LocalDateTime birthDate) {
+      public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
       }
 

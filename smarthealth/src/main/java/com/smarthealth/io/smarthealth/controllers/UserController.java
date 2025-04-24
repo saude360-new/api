@@ -37,13 +37,13 @@ public class UserController {
     @PostMapping
 public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto dto) {
     try {
-        System.out.println("DEBUG: recebendo DTO: " + dto);
+ 
         User entity = userMapper.fromDto(dto);
-        System.out.println("DEBUG: entidade mapeada: " + entity);
+
         User saved = userService.create(entity);
-        System.out.println("DEBUG: entidade salva: " + saved);
+
         UserResponseDto response = userMapper.toResponse(saved);
-        System.out.println("DEBUG: DTO de resposta: " + response);
+
         return ResponseEntity.ok(response);
     } catch (Exception e) {
         e.printStackTrace();

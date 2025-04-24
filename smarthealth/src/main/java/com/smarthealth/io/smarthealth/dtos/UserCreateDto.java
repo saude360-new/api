@@ -2,7 +2,7 @@ package com.smarthealth.io.smarthealth.dtos;
 
 import jakarta.validation.constraints.*;
 
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class UserCreateDto {
 
@@ -17,7 +17,7 @@ public class UserCreateDto {
   private String lastName;
 
   @NotBlank
-  private  LocalDateTime birthDate;
+  private  LocalDate birthDate;
 
   @NotBlank
   private String gender;
@@ -70,11 +70,11 @@ public class UserCreateDto {
     this.lastName = lastName;
   }
 
-  public LocalDateTime getBirthDate() {
+  public LocalDate getBirthDate() {
     return birthDate;
   }
 
-  public void setBirthDate(LocalDateTime birthDate) {
+  public void setBirthDate(LocalDate birthDate) {
     this.birthDate = birthDate;
   }
 

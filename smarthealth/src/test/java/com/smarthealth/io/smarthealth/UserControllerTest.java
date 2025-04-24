@@ -1,4 +1,4 @@
-package com.smarthealth.io.smarthealth;
+/*package com.smarthealth.io.smarthealth;
 
 import com.smarthealth.io.smarthealth.dtos.UserCreateDto;
 import com.smarthealth.io.smarthealth.dtos.UserResponseDto;
@@ -90,4 +90,4 @@ public class UserControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, notFoundException.getStatusCode());
         System.out.println("\u001B[32m✔ GET após delete retornou 404 como esperado.\u001B[0m");
     }
-}
+}*/

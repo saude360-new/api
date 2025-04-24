@@ -28,7 +28,7 @@ public class Devices{
   private int rssi;
 
     //criar o tipo dps e mudar este String junto com as get e set desta variavel
-  @Column(name = "device_status", nullable = false)
+  @Column(name = "status", nullable = false)
   private String deviceStatus;
 
   @Column(name = "pairing_key", nullable = false, unique = true)
@@ -166,4 +166,6 @@ public class Devices{
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
+
+ 
 }

@@ -32,13 +32,13 @@ public class DeviceData {
   @Column(name = "time_serie",nullable = false)
   private String time_serie;
 
-  @Column(name = "oximetry_graph",nullable = false, columnDefinition = "jsonb")
+  @Column(name = "oximetry_graph",nullable = false, columnDefinition = "json")
   private String oximetry_graph;
 
-  @Column(name = "temp_graph",nullable = false, columnDefinition = "jsonb")
+  @Column(name = "temp_graph",nullable = false, columnDefinition = "json")
   private String temp_graph;
 
-  @Column(name = "acceleration_graph",nullable = false, columnDefinition = "jsonb")
+  @Column(name = "acceleration_graph",nullable = false, columnDefinition = "json")
   private String acceleration_graph;
 
   @Column(name = "created_at",nullable = false)

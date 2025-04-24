@@ -23,7 +23,7 @@ public class DataExchangeLogs {
   @Column(name = "data_received")
   private String data_received;
 
-  @Column(name = "transport_props",nullable = false, columnDefinition = "jsonb")
+  @Column(name = "transport_props",nullable = false, columnDefinition = "json")
   private String transport_props;
 
   @Column(name = "created_at",nullable = false)
