@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "device_data")
-public class Device_data {
+public class DeviceData {
 
   @Id
   @GeneratedValue( strategy = GenerationType.UUID)
@@ -17,8 +17,8 @@ public class Device_data {
   @JoinColumn(name = "device_id", nullable = false, unique = true)
   private Devices devices;
 
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sequence", nullable = false)
+  
+    @Column(name = "sequence", nullable = false,updatable = false, insertable = false)
     private int sequence;
 
   public int getSequence() {
@@ -32,13 +32,13 @@ public class Device_data {
   @Column(name = "time_serie",nullable = false)
   private String time_serie;
 
-  @Column(name = "oximetry_graph",nullable = false, columnDefinition = "jsonb")
+  @Column(name = "oximetry_graph",nullable = false, columnDefinition = "json")
   private String oximetry_graph;
 
-  @Column(name = "temp_graph",nullable = false, columnDefinition = "jsonb")
+  @Column(name = "temp_graph",nullable = false, columnDefinition = "json")
   private String temp_graph;
 
-  @Column(name = "acceleration_graph",nullable = false, columnDefinition = "jsonb")
+  @Column(name = "acceleration_graph",nullable = false, columnDefinition = "json")
   private String acceleration_graph;
 
   @Column(name = "created_at",nullable = false)

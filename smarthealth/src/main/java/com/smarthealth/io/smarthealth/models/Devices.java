@@ -10,89 +10,89 @@ public class Devices{
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "device_id")
-  private String device_id;
+  private String deviceId;
 
   @Column(name = "bluetooth_chip_uid", nullable = false, unique = true)
-  private String bluetooth_chip_uid;
+  private String bluetoothChipUid;
   
   @Column(name = "serial_number", nullable = false, unique = true)
-  private String serial_number;
+  private String serialNumber;
 
   @Column(name = "bluetooth_version", nullable = false)
-  private String bluetooth_version;
+  private String bluetoothVersion;
 
-  @Column(name = "last_connected")
-  private LocalDateTime last_connected;
+  @Column(name = "last_connected", nullable = true)
+  private LocalDateTime lastConnected;
 
   @Column(name = "rssi", nullable = false, columnDefinition = "INT DEFAULT 0")
   private int rssi;
 
     //criar o tipo dps e mudar este String junto com as get e set desta variavel
-  @Column(name = "device_status", nullable = false)
-  private String device_status;
+  @Column(name = "status", nullable = false)
+  private String deviceStatus;
 
   @Column(name = "pairing_key", nullable = false, unique = true)
-  private String pairing_key;
+  private String pairingKey;
 
   @Column(name = "firmware_version", nullable = false)
-  private String firmware_version;
+  private String firmwareVersion;
 
   @Column(name = "last_error")
-  private String last_error;
+  private String lastError;
 
   @Column(name = "connection_error")
-  private String connection_error;
+  private String connectionError;
 
   @ManyToOne
     @JoinColumn(name = "registered_by", unique = true, nullable = false)
-    private User user;
+    private User registeredBy;
 
   @Column(name = "created_at", nullable = false)
-  private LocalDateTime created_at;
+  private LocalDateTime createdAt;
 
   @Column(name = "updated_at", nullable = false)
-  private LocalDateTime updated_at;
+  private LocalDateTime updatedAt;
 
   public Devices(){}
 
-  public String getDevice_id() {
-    return device_id;
+  public String getDeviceId() {
+    return deviceId;
   }
 
-  public void setDevice_id(String device_id) {
-    this.device_id = device_id;
+  public void setDeviceId(String deviceId) {
+    this.deviceId = deviceId;
   }
 
-  public String getBluetooth_chip_uid() {
-    return bluetooth_chip_uid;
+  public String getBluetoothChipUid() {
+    return bluetoothChipUid;
   }
 
-  public void setBluetooth_chip_uid(String bluetooth_chip_uid) {
-    this.bluetooth_chip_uid = bluetooth_chip_uid;
+  public void setBluetoothChipUid(String bluetoothChipUid) {
+    this.bluetoothChipUid = bluetoothChipUid;
   }
 
-  public String getSerial_number() {
-    return serial_number;
+  public String getSerialNumber() {
+    return serialNumber;
   }
 
-  public void setSerial_number(String serial_number) {
-    this.serial_number = serial_number;
+  public void setSerialNumber(String serialNumber) {
+    this.serialNumber = serialNumber;
   }
 
-  public String getBluetooth_version() {
-    return bluetooth_version;
+  public String getBluetoothVersion() {
+    return bluetoothVersion;
   }
 
-  public void setBluetooth_version(String bluetooth_version) {
-    this.bluetooth_version = bluetooth_version;
+  public void setBluetoothVersion(String bluetoothVersion) {
+    this.bluetoothVersion = bluetoothVersion;
   }
 
-  public LocalDateTime getLast_connected() {
-    return last_connected;
+  public LocalDateTime getLastConnected() {
+    return lastConnected;
   }
 
-  public void setLast_connected(LocalDateTime last_connected) {
-    this.last_connected = last_connected;
+  public void setLastConnected(LocalDateTime lastConnected) {
+    this.lastConnected = lastConnected;
   }
 
   public int getRssi() {
@@ -103,71 +103,69 @@ public class Devices{
     this.rssi = rssi;
   }
 
-  public String getDevice_status() {
-    return device_status;
+  public String getDeviceStatus() {
+    return deviceStatus;
   }
 
-  public void setDevice_status(String device_status) {
-    this.device_status = device_status;
+  public void setDeviceStatus(String deviceStatus) {
+    this.deviceStatus = deviceStatus;
   }
 
-  public String getPairing_key() {
-    return pairing_key;
+  public String getPairingKey() {
+    return pairingKey;
   }
 
-  public void setPairing_key(String pairing_key) {
-    this.pairing_key = pairing_key;
+  public void setPairingKey(String pairingKey) {
+    this.pairingKey = pairingKey;
   }
 
-  public String getFirmware_version() {
-    return firmware_version;
+  public String getFirmwareVersion() {
+    return firmwareVersion;
   }
 
-  public void setFirmware_version(String firmware_version) {
-    this.firmware_version = firmware_version;
+  public void setFirmwareVersion(String firmwareVersion) {
+    this.firmwareVersion = firmwareVersion;
   }
 
-  public String getLast_error() {
-    return last_error;
+  public String getLastError() {
+    return lastError;
   }
 
-  public void setLast_error(String last_error) {
-    this.last_error = last_error;
+  public void setLastError(String lastError) {
+    this.lastError = lastError;
   }
 
-  public String getConnection_error() {
-    return connection_error;
+  public String getConnectionError() {
+    return connectionError;
   }
 
-  public void setConnection_error(String connection_error) {
-    this.connection_error = connection_error;
+  public void setConnectionError(String connectionError) {
+    this.connectionError = connectionError;
   }
 
-  public User getUser() {
-    return user;
+  public User getRegisteredBy() {
+    return registeredBy;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setRegisteredBy(User registeredBy) {
+    this.registeredBy = registeredBy;
   }
 
-  public LocalDateTime getCreated_at() {
-    return created_at;
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setCreated_at(LocalDateTime created_at) {
-    this.created_at = created_at;
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
-  public LocalDateTime getUpdated_at() {
-    return updated_at;
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
   }
 
-  public void setUpdated_at(LocalDateTime updated_at) {
-    this.updated_at = updated_at;
+  public void setUpdatedAt(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
-
-
-
+ 
 }

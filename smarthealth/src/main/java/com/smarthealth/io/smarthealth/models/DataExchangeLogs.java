@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "data_exchange_logs")
-public class Data_exchange_logs {
+public class DataExchangeLogs {
   @Id
   @GeneratedValue( strategy = GenerationType.UUID)
       @Column(name = "log_id")
@@ -23,7 +23,7 @@ public class Data_exchange_logs {
   @Column(name = "data_received")
   private String data_received;
 
-  @Column(name = "transport_props",nullable = false, columnDefinition = "jsonb")
+  @Column(name = "transport_props",nullable = false, columnDefinition = "json")
   private String transport_props;
 
   @Column(name = "created_at",nullable = false)

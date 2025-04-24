@@ -7,18 +7,21 @@ import jakarta.persistence.*;
 
   @Entity
   @Table(name = "user_metadata")
-  public class User_metadata{
+  public class UserMetadata{
 
-     
-      
+    @Id
+    @Column(name = "user_metadata_row_id",nullable = false,insertable = false,updatable = false)
+    private int user_metadata_row_id;
+    
+
     @OneToOne
     @JoinColumn(name = "user_id", unique = true, nullable = false)
     private User user;
 
 
-      public User_metadata(){}
+      public UserMetadata(){}
 
-      public User_metadata(User user){
+      public UserMetadata(User user){
         this.user = user;
       }
 
