@@ -23,8 +23,8 @@ public class DevicesCreateDto {
   @NotBlank
   private String firmwareVersion;
 
-  
-
+  @NotBlank
+  private String pairingKey;
 
   public String getBluetoothChipUid() {
     return bluetoothChipUid;
@@ -58,6 +58,14 @@ public class DevicesCreateDto {
     this.bluetoothVersion = bluetoothVersion;
   }
 
+  public String getRegisteredBy() {
+    return registeredBy;
+  }
+
+  public void setRegisteredBy(String registeredBy) {
+    this.registeredBy = registeredBy;
+  }
+
   public String getFirmwareVersion() {
     return firmwareVersion;
   }
@@ -66,12 +74,17 @@ public class DevicesCreateDto {
     this.firmwareVersion = firmwareVersion;
   }
 
-  public String getRegisteredBy() {
-    return registeredBy;
+  public String getPairingKey() {
+    return pairingKey;
   }
 
-  public void setRegisteredBy(String registeredBy) {
-    this.registeredBy = registeredBy;
+  public void setPairingKey(String pairingKey) {
+    this.pairingKey = pairingKey;
   }
+
+  
+
+
+  
 
 }

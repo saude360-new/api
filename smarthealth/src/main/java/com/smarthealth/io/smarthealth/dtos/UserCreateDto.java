@@ -1,6 +1,11 @@
 package com.smarthealth.io.smarthealth.dtos;
 
+
+import com.smarthealth.io.smarthealth.models.User;
+import com.smarthealth.io.smarthealth.models.User.UserRole;
+
 import jakarta.validation.constraints.*;
+
 
 import java.time.*;
 
@@ -25,8 +30,8 @@ public class UserCreateDto {
   @NotBlank
   private String emailAddress;
 
-  @NotBlank
-  private String userRole;
+  @NotNull
+  private User.UserRole userRole;
 
   @NotBlank
   private String emailHash;
@@ -45,6 +50,12 @@ public class UserCreateDto {
 
   @NotBlank
   private String privateKey;
+
+ 
+
+  
+
+  
 
   public String getPassword() {
     return password;
@@ -94,11 +105,11 @@ public class UserCreateDto {
     this.emailAddress = emailAddress;
   }
 
-  public String getUserRole() {
+  public UserRole getUserRole() {
     return userRole;
   }
 
-  public void setUserRole(String userRole) {
+  public void setUserRole(UserRole userRole) {
     this.userRole = userRole;
   }
 

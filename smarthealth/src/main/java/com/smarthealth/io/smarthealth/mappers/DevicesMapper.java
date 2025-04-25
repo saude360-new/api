@@ -23,7 +23,8 @@ public class DevicesMapper {
     devices.setFirmwareVersion(dto.getFirmwareVersion());
     devices.setCreatedAt(LocalDateTime.now());
     devices.setUpdatedAt(LocalDateTime.now());
-    devices.setDeviceStatus("Dado completamente real");
+    devices.setDeviceStatus("disconnected");
+    devices.setPairingKey(dto.getPairingKey());
 
 
     return devices;

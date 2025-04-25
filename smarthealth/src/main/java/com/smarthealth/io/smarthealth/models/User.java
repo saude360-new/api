@@ -12,6 +12,11 @@ import java.time.LocalDateTime;
   @Table(name = "users")
   public class User{
 
+    public enum UserRole {
+      caregiver,
+      patient
+    }
+
       @Id
       @GeneratedValue( strategy = GenerationType.UUID)
       @Column(name = "user_id")
@@ -41,8 +46,9 @@ import java.time.LocalDateTime;
       @Column(name = "salt", nullable = false, unique = true)
       private String salt;
 
+      @Enumerated(EnumType.STRING)
       @Column(name = "role", nullable = false)
-      private String userRole;
+      private UserRole userRole;
 
       @Column(name = "symmetric_key", nullable = false)
       private String symmetricKey;
@@ -177,13 +183,13 @@ import java.time.LocalDateTime;
 
 
 
-      public String getUserRole() {
+      public UserRole getUserRole() {
         return userRole;
       }
 
 
 
-      public void setUserRole(String userRole) {
+      public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
       }
 

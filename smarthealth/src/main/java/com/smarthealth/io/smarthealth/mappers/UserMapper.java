@@ -3,6 +3,7 @@ package com.smarthealth.io.smarthealth.mappers;
 import com.smarthealth.io.smarthealth.dtos.UserCreateDto;
 import com.smarthealth.io.smarthealth.dtos.UserResponseDto; 
 import com.smarthealth.io.smarthealth.models.User;
+import com.smarthealth.io.smarthealth.models.User.UserRole;
 
 import java.time.LocalDateTime;
 
@@ -11,17 +12,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
   
-  public  User fromDto(UserCreateDto dto) {
+  public User fromDto(UserCreateDto dto) {
     User user = new User();
     user.setFirstName(dto.getFirstName());
     user.setLastName(dto.getLastName());
     user.setEmailAddress(dto.getEmailAddress());
     user.setGender(dto.getGender());
     user.setBirthDate(dto.getBirthDate());
+
+    // Conversão segura de String para Enum
     user.setUserRole(dto.getUserRole());
 
-    user.setEmailHash("hashed_"+dto.getEmailAddress());
-    user.setPasswordDigest("hashed_" + dto.getPassword()); // dado mockado so resolver dps de td pronto
+    user.setEmailHash("hashed_" + dto.getEmailAddress());
+    user.setPasswordDigest("hashed_" + dto.getPassword());
     user.setSalt("saltzinho");
     user.setPrivateKey("Private key");
     user.setPublicKey("Public key");
