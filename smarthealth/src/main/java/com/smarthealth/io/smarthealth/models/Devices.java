@@ -3,9 +3,18 @@ package com.smarthealth.io.smarthealth.models;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.PostgreSQLEnumJdbcType;
+
 @Entity
 @Table(name = "devices")
 public class Devices{
+
+  public enum Status{
+    pairing,
+    connected, 
+    disconnected
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,8 +37,11 @@ public class Devices{
   private int rssi;
 
     //criar o tipo dps e mudar este String junto com as get e set desta variavel
+
   @Column(name = "status", nullable = false)
-  private String deviceStatus;
+  @Enumerated(EnumType.STRING)
+  @JdbcType(PostgreSQLEnumJdbcType.class)
+  private Status deviceStatus;
 
   @Column(name = "pairing_key", nullable = false, unique = true)
   private String pairingKey;
@@ -103,11 +115,11 @@ public class Devices{
     this.rssi = rssi;
   }
 
-  public String getDeviceStatus() {
+  public Status getDeviceStatus() {
     return deviceStatus;
   }
 
-  public void setDeviceStatus(String deviceStatus) {
+  public void setDeviceStatus(Status deviceStatus) {
     this.deviceStatus = deviceStatus;
   }
 
@@ -166,6 +178,9 @@ public class Devices{
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
+
+  
+  
 
  
 }

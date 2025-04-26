@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.PostgreSQLEnumJdbcType;
+
 //import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 
 
@@ -46,8 +49,10 @@ import java.time.LocalDateTime;
       @Column(name = "salt", nullable = false, unique = true)
       private String salt;
 
-      @Enumerated(EnumType.STRING)
+      
       @Column(name = "role", nullable = false)
+      @Enumerated(EnumType.STRING)
+      @JdbcType(PostgreSQLEnumJdbcType.class)
       private UserRole userRole;
 
       @Column(name = "symmetric_key", nullable = false)

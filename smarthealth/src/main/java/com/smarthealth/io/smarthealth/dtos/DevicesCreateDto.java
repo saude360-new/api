@@ -1,5 +1,7 @@
 package com.smarthealth.io.smarthealth.dtos;
 
+import com.smarthealth.io.smarthealth.models.Devices;
+
 import jakarta.validation.constraints.*;
 
 
@@ -25,6 +27,9 @@ public class DevicesCreateDto {
 
   @NotBlank
   private String pairingKey;
+
+  @NotNull
+  private Devices.Status deviceStatus;
 
   public String getBluetoothChipUid() {
     return bluetoothChipUid;
@@ -82,9 +87,11 @@ public class DevicesCreateDto {
     this.pairingKey = pairingKey;
   }
 
-  
+  public Devices.Status getDeviceStatus() {
+    return deviceStatus;
+  }
 
-
-  
-
+  public void setDeviceStatus(Devices.Status deviceStatus) {
+    this.deviceStatus = deviceStatus;
+}
 }

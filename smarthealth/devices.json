@@ -1,11 +1,11 @@
 {
-    "bluetoothChipUid":"abc",
-    "serialNumber":"123",
-    "rssi":4321,
-    "bluetoothVersion":"1.8.0.3",
-    "registeredBy":"101",
-    "firmwareVersion":"meu saco",
-    "pairingKey":"abcdalho"
-
-
+  "deviceId": "abc123",
+  "bluetoothChipUid": "chip-001",
+  "serialNumber": "SN-12345",
+  "bluetoothVersion": "5.0",
+  "rssi": 85,
+  "firmwareVersion": "1.0.0",
+  "pairingKey": "secure-key-xyz",
+  "registeredBy": "4d06d84f-7a6b-4b55-80b4-511c43ef9563",
+  "deviceStatus": "disconnected"
 }

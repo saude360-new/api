@@ -23,8 +23,9 @@ public class DevicesMapper {
     devices.setFirmwareVersion(dto.getFirmwareVersion());
     devices.setCreatedAt(LocalDateTime.now());
     devices.setUpdatedAt(LocalDateTime.now());
-    devices.setDeviceStatus("disconnected");
+    devices.setDeviceStatus(dto.getDeviceStatus());
     devices.setPairingKey(dto.getPairingKey());
+    devices.setRegisteredBy(registeredBy);
 
 
     return devices;

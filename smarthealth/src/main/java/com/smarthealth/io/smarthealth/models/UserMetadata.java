@@ -10,28 +10,67 @@ import jakarta.persistence.*;
   public class UserMetadata{
 
     @Id
-    @Column(name = "user_metadata_row_id",nullable = false,insertable = false,updatable = false)
-    private int user_metadata_row_id;
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_metadata_row_id")
+    private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Column(name = "metadata_key", nullable = false)
+    private String key;
+
+    @Column(name = "metadata_value", nullable = false)
+    private String value;
 
 
       public UserMetadata(){}
 
-      public UserMetadata(User user){
+
+      public Long getId() {
+        return id;
+      }
+
+
+      public void setId(Long id) {
+        this.id = id;
+      }
+
+
+      public User getUser() {
+        return user;
+      }
+
+
+      public void setUser(User user) {
         this.user = user;
       }
 
-      public User getUser_id(){
-        return this.user;
+
+      public String getKey() {
+        return key;
       }
 
-      public void setUser_id(User user){
-        this.user = user; 
+
+      public void setKey(String key) {
+        this.key = key;
       }
+
+
+      public String getValue() {
+        return value;
+      }
+
+
+      public void setValue(String value) {
+        this.value = value;
+      }
+
+      
+
+
+      
   }
 
   

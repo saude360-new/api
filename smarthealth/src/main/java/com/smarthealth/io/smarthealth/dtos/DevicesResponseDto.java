@@ -2,10 +2,12 @@ package com.smarthealth.io.smarthealth.dtos;
 
 import java.time.LocalDateTime;
 
+import com.smarthealth.io.smarthealth.models.Devices;
+
 public class DevicesResponseDto {
 
   private String deviceId;
-  private String deviceStatus;
+  private Devices.Status deviceStatus;
   private LocalDateTime lastConnected;
   private String registeredby;
 
@@ -16,10 +18,10 @@ public class DevicesResponseDto {
   public void setDeviceId(String deviceId) {
     this.deviceId = deviceId;
   }
-  public String getDeviceStatus() {
+  public Devices.Status getDeviceStatus() {
     return deviceStatus;
   }
-  public void setDeviceStatus(String deviceStatus) {
+  public void setDeviceStatus(Devices.Status deviceStatus) {
     this.deviceStatus = deviceStatus;
   }
   public LocalDateTime getLastConnected() {
