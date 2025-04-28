@@ -36,8 +36,6 @@ public class Devices{
   @Column(name = "rssi", nullable = false, columnDefinition = "INT DEFAULT 0")
   private int rssi;
 
-    //criar o tipo dps e mudar este String junto com as get e set desta variavel
-
   @Column(name = "status", nullable = false)
   @Enumerated(EnumType.STRING)
   @JdbcType(PostgreSQLEnumJdbcType.class)
