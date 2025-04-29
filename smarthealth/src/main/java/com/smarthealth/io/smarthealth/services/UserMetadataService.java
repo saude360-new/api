@@ -33,24 +33,20 @@ public UserMetadata create(UserMetadataDto dto) {
 
 }
 
-    public List<Devices> findAll(){
-      return devicesRepository.findAll();
+    public List<UserMetadata> findAll(){
+      return userMetadataRepository.findAll();
     }
 
-    public Optional<Devices> findById(String id){
-      return devicesRepository.findById(id);
+    public Optional<UserMetadata> findById(String id){
+      return userMetadataRepository.findById(id);
     }
 
-    public Optional<Devices> findByBluetoothChipUid(String bluetoothChipUid){
-      return devicesRepository.findByBluetoothChipUid(bluetoothChipUid);
-    }
-
-    public Optional<Devices> findByRegisteredBy(String userId){
-      return devicesRepository.findByRegisteredByUserId(userId);
+    public List<UserMetadata> findByUser(String userId){
+      return userMetadataRepository.findByUserUserId(userId);
     }
 
     public void deleteById(String id) {
-      devicesRepository.deleteById(id);
+      userMetadataRepository.deleteById(id);
   }
   
 }

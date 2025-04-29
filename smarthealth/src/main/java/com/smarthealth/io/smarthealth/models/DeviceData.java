@@ -100,8 +100,4 @@ public class DeviceData {
     this.created_at = created_at;
   }
 
-
-
-  
-  
 }

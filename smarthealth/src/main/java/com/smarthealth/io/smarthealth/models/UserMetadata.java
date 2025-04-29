@@ -10,9 +10,12 @@ import jakarta.persistence.*;
   public class UserMetadata{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "metadata_seq")
+    @SequenceGenerator(name = "metadata_seq",
+    sequenceName = "user_metadata_user_metadata_row_id_seq",
+    allocationSize = 1)
     @Column(name = "user_metadata_row_id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -28,12 +31,12 @@ import jakarta.persistence.*;
       public UserMetadata(){}
 
 
-      public Long getId() {
+      public Integer getId() {
         return id;
       }
 
 
-      public void setId(Long id) {
+      public void setId(Integer id) {
         this.id = id;
       }
 

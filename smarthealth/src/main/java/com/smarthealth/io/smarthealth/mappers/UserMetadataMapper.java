@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMetadataMapper {
 
-    public UserMetadata fromDto(UserMetadataDto dto, User user) {
+    public static UserMetadata fromDto(UserMetadataDto dto, User user) {
         UserMetadata metadata = new UserMetadata();
         metadata.setUser(user);
         metadata.setKey(dto.getKey());
@@ -16,7 +16,7 @@ public class UserMetadataMapper {
         return metadata;
     }
 
-    public UserMetadataDto toDto(UserMetadata metadata) {
+    public static UserMetadataDto toDto(UserMetadata metadata) {
       
        UserMetadataDto dto =  new UserMetadataDto();
 
