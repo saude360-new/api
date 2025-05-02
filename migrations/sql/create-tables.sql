@@ -77,11 +77,10 @@ CREATE TABLE IF NOT EXISTS accounts_relationship (
   accounts_relationship_row_id SERIAL NOT NULL PRIMARY KEY,
   patient_id VARCHAR(128) NOT NULL,
   caregiver_id VARCHAR(128) NOT NULL,
-  device_id VARCHAR(128) NULL,
+
   FOREIGN KEY (patient_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE RESTRICT,
-  FOREIGN KEY (caregiver_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE RESTRICT,
-  FOREIGN KEY (device_id) REFERENCES devices(device_id) ON DELETE SET NULL ON UPDATE SET NULL
-);
+  FOREIGN KEY (caregiver_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE RESTRICT
+  );
 
 -- End Stage A
 

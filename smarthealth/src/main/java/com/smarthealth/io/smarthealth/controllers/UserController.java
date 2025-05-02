@@ -35,20 +35,20 @@ public class UserController {
 
 
     @PostMapping
-public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto dto) {
-    try {
- 
-        User entity = userMapper.fromDto(dto);
+    public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto dto) {
+        try {
+    
+            User entity = userMapper.fromDto(dto);
 
-        User saved = userService.create(entity);
+            User saved = userService.create(entity);
 
-        UserResponseDto response = userMapper.toResponse(saved);
+            UserResponseDto response = userMapper.toResponse(saved);
 
-        return ResponseEntity.ok(response);
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 }
 
 

@@ -4,6 +4,7 @@ import com.smarthealth.io.smarthealth.dtos.UserCreateDto;
 import com.smarthealth.io.smarthealth.dtos.UserResponseDto; 
 import com.smarthealth.io.smarthealth.models.User;
 import com.smarthealth.io.smarthealth.models.User.UserRole;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.LocalDateTime;
 
@@ -25,10 +26,10 @@ public class UserMapper {
 
     user.setEmailHash("hashed_" + dto.getEmailAddress());
     user.setPasswordDigest("hashed_" + dto.getPassword());
-    user.setSalt("saltzinho");
-    user.setPrivateKey("Private key");
-    user.setPublicKey("Public key");
-    user.setSymmetricKey("Symetric key");
+    user.setSalt("saltzinho" + RandomStringUtils.randomAlphanumeric(16));
+    user.setPrivateKey("Private key" + RandomStringUtils.randomAlphanumeric(16));
+    user.setPublicKey("Public key" + RandomStringUtils.randomAlphanumeric(16));
+    user.setSymmetricKey("Symetric key" + RandomStringUtils.randomAlphanumeric(16));
     user.setCreatedAt(LocalDateTime.now());
     user.setUpdatedAt(LocalDateTime.now());
 

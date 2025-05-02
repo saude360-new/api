@@ -11,9 +11,7 @@ public class AccountsRelationship {
   @Column(name = "accounts_relationship_row_id")
   private int accounts_relationship_row_id;
 
-  @ManyToOne
-  @JoinColumn(name = "device_id", nullable = false, unique = true)
-  private Devices devices;
+
 
   @ManyToOne
   @JoinColumn(name = "caregiver_id", nullable = false, unique = true)
@@ -29,14 +27,6 @@ public class AccountsRelationship {
 
   public void setAccounts_relationship_row_id(int accounts_relationship_row_id) {
     this.accounts_relationship_row_id = accounts_relationship_row_id;
-  }
-
-  public Devices getDevices() {
-    return devices;
-  }
-
-  public void setDevices(Devices devices) {
-    this.devices = devices;
   }
 
   public User getCaregiver() {
