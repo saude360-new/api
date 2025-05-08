@@ -1,15 +1,4 @@
 {
   "password": "123",
-  "firstName": "Maria",
-  "lastName": "Silva",
-  "birthDate": "1995-05-20",
-  "gender": "female",
-  "emailAddress": "maria@example.com",
-  "userRole": "caregiver",
-  "emaiHash": "emaiHash",
-  "passwordDigest":"passwordDigest",
-  "salt":"salt",
-  "symmetricKey":"symmetricKey",
-  "publicKey":"publicKey",
-  "privateKey":"privateKey"
+  "emailAdress": "maria@example.com"
 }

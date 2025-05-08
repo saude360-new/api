@@ -51,11 +51,7 @@ public class UserCreateDto {
   @NotBlank
   private String privateKey;
 
- 
-
-  
-
-  
+  private String patientID;
 
   public String getPassword() {
     return password;
@@ -105,15 +101,74 @@ public class UserCreateDto {
     this.emailAddress = emailAddress;
   }
 
-  public UserRole getUserRole() {
+  public User.UserRole getUserRole() {
     return userRole;
   }
 
-  public void setUserRole(UserRole userRole) {
+  public void setUserRole(User.UserRole userRole) {
     this.userRole = userRole;
   }
 
+  public String getEmailHash() {
+    return emailHash;
+  }
+
+  public void setEmailHash(String emailHash) {
+    this.emailHash = emailHash;
+  }
+
+  public String getPassworDigest() {
+    return passworDigest;
+  }
+
+  public void setPassworDigest(String passworDigest) {
+    this.passworDigest = passworDigest;
+  }
+
+  public String getSalt() {
+    return salt;
+  }
+
+  public void setSalt(String salt) {
+    this.salt = salt;
+  }
+
+  public String getSymmetricKey() {
+    return symmetricKey;
+  }
+
+  public void setSymmetricKey(String symmetricKey) {
+    this.symmetricKey = symmetricKey;
+  }
+
+  public String getPublicKey() {
+    return publicKey;
+  }
+
+  public void setPublicKey(String publicKey) {
+    this.publicKey = publicKey;
+  }
+
+  public String getPrivateKey() {
+    return privateKey;
+  }
+
+  public void setPrivateKey(String privateKey) {
+    this.privateKey = privateKey;
+  }
+
+  public String getPatientID() {
+    return patientID;
+  }
+
+  public void setPatientID(String patientID) {
+    this.patientID = patientID;
+  }
+
   
+
+  
+
 
   
 

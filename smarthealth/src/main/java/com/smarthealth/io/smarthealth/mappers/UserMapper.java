@@ -24,6 +24,8 @@ public class UserMapper {
     // Conversão segura de String para Enum
     user.setUserRole(dto.getUserRole());
 
+
+    //so para testar
     user.setEmailHash("hashed_" + dto.getEmailAddress());
     user.setPasswordDigest("hashed_" + dto.getPassword());
     user.setSalt("saltzinho" + RandomStringUtils.randomAlphanumeric(16));

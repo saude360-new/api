@@ -1,9 +1,8 @@
-package com.smarthealth.io.smarthealth.services;
+/*package com.smarthealth.io.smarthealth.services;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
 
 import com.smarthealth.io.smarthealth.dtos.UserMetadataDto;
 import com.smarthealth.io.smarthealth.mappers.DevicesMapper;
@@ -14,10 +13,9 @@ import com.smarthealth.io.smarthealth.models.UserMetadata;
 import com.smarthealth.io.smarthealth.models.User;
 
 
-@Service
-public class UserMetadataService {
 
 
+public class AccountsRelationshipService {
   private final UserMetadataRepository userMetadataRepository;
   private final UserService userService;
 
@@ -52,5 +50,5 @@ public UserMetadata create(UserMetadataDto dto) {
     public void deleteById(String id) {
       userMetadataRepository.deleteById(id);
   }
-  
 }
+*/

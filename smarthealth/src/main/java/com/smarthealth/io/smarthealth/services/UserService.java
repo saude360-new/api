@@ -1,5 +1,6 @@
 package com.smarthealth.io.smarthealth.services;
 
+import com.smarthealth.io.smarthealth.dtos.UserLoginDto;
 import com.smarthealth.io.smarthealth.models.User;
 import com.smarthealth.io.smarthealth.repositories.UserRepository;
 
@@ -37,4 +38,35 @@ public class UserService {
     public void deleteById(String id) {
         userRepository.deleteById(id);
     }
+
+
+
+
+
+
+
+
+
+
+
+    public Optional<User> authenticate(UserLoginDto dto) {
+      Optional<User> optionalUser = findByEmail(dto.getEmailAdress());
+  
+      if (optionalUser.isPresent()) {
+          User user = optionalUser.get();
+          if (user.getPasswordDigest().equals("hashed_" + dto.getPassword())) {
+              return Optional.of(user);
+          }
+      }
+  
+      return Optional.empty();
+  }
+  
+
+
+
+
+
+
+  
 }

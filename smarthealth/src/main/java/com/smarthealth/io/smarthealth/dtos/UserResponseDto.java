@@ -3,6 +3,7 @@ package com.smarthealth.io.smarthealth.dtos;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class UserResponseDto{
 
@@ -11,6 +12,7 @@ public class UserResponseDto{
   private String lastName;
   private String emailAddress;
   private LocalDateTime createdAt;
+  private List<UserMetadataDto> metadata;
 
   
   public String getUserId() {
@@ -43,6 +45,15 @@ public class UserResponseDto{
   public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
+  public List<UserMetadataDto> getMetadata() {
+    return metadata;
+  }
+  public void setMetadata(List<UserMetadataDto> metadata) {
+    this.metadata = metadata;
+  }
+
+  
+  
 
   
 
