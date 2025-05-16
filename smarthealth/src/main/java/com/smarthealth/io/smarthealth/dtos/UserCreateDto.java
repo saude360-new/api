@@ -51,7 +51,7 @@ public class UserCreateDto {
   @NotBlank
   private String privateKey;
 
-  private String patientID;
+  private String patientEmail;
 
   public String getPassword() {
     return password;
@@ -157,12 +157,12 @@ public class UserCreateDto {
     this.privateKey = privateKey;
   }
 
-  public String getPatientID() {
-    return patientID;
+  public String getPatientEmail() {
+    return patientEmail;
   }
 
-  public void setPatientID(String patientID) {
-    this.patientID = patientID;
+  public void setPatientID(String patientEmail) {
+    this.patientEmail = patientEmail;
   }
 
   

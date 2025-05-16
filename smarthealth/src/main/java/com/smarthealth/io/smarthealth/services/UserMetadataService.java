@@ -32,8 +32,8 @@ public UserMetadata create(UserMetadataDto dto) {
   User user = userService.findById(dto.getUserId()) 
   .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + dto.getUserId()));
 
-  UserMetadata device = UserMetadataMapper.fromDto(dto, user);
-  return userMetadataRepository.save(device);
+  UserMetadata userMetadata = UserMetadataMapper.fromDto(dto, user);
+  return userMetadataRepository.save(userMetadata);
 
 }
 

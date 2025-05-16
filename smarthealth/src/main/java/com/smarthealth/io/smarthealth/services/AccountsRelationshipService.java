@@ -1,54 +1,55 @@
-/*package com.smarthealth.io.smarthealth.services;
+package com.smarthealth.io.smarthealth.services;
 
 import java.util.List;
 import java.util.Optional;
 
-
 import com.smarthealth.io.smarthealth.dtos.UserMetadataDto;
-import com.smarthealth.io.smarthealth.mappers.DevicesMapper;
 import com.smarthealth.io.smarthealth.mappers.UserMetadataMapper;
-import com.smarthealth.io.smarthealth.models.UserMetadata;
-import com.smarthealth.io.smarthealth.repositories.UserMetadataRepository;
-import com.smarthealth.io.smarthealth.models.UserMetadata;
+import com.smarthealth.io.smarthealth.models.AccountsRelationship;
+import com.smarthealth.io.smarthealth.repositories.AccountsRelationshipRepository;
 import com.smarthealth.io.smarthealth.models.User;
+import com.smarthealth.io.smarthealth.models.UserMetadata;
 
 
 
 
 public class AccountsRelationshipService {
-  private final UserMetadataRepository userMetadataRepository;
+  private final AccountsRelationshipRepository accountsRelationshipRepository;
   private final UserService userService;
 
-  public UserMetadataService(UserMetadataRepository userMetadataRepository, UserService userService) {
-    this.userMetadataRepository = userMetadataRepository;
+  public AccountsRelationshipService(AccountsRelationshipRepository accountsRelationshipRepository, UserService userService) {
+    this.accountsRelationshipRepository = accountsRelationshipRepository;
     this.userService = userService;
   }
 
 
   //como o userservice devolve um optiona<user> e o mapper espera um user precisamos fazer essa gambiarra de lançar erro
-public UserMetadata create(UserMetadataDto dto) {
-  User user = userService.findById(dto.getUserId()) 
-  .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + dto.getUserId()));
+  public AccountsRelationship create(String patientEmail, String caregiverId) {
 
-  UserMetadata device = UserMetadataMapper.fromDto(dto, user);
-  return userMetadataRepository.save(device);
+    User patient = userService.findByEmail(patientEmail)
+    .orElseThrow(() -> new RuntimeException("Paciente não encontrado: "+patientEmail));
 
-}
+    User caregiver = userService.findById(caregiverId)
+    .orElseThrow(() -> new RuntimeException("Usuário não encontrado: "+caregiverId));
 
-    public List<UserMetadata> findAll(){
-      return userMetadataRepository.findAll();
+    AccountsRelationship ar = new AccountsRelationship(patient, caregiver);
+    return accountsRelationshipRepository.save(ar);
+
+  }
+
+    public List<AccountsRelationship> findAll(){
+      return accountsRelationshipRepository.findAll();
     }
 
-    public List<UserMetadata> findById(String id){
-      return userMetadataRepository.findByUserUserId(id);
+    public List<AccountsRelationship> findByCaregiverId(String id){
+      return accountsRelationshipRepository.findByCaregiverUserId(id);
     }
 
-    public List<UserMetadata> findByUser(String userId){
-      return userMetadataRepository.findByUserUserId(userId);
+    public List<AccountsRelationship> findByPatientId(String userId){
+      return accountsRelationshipRepository.findByPatientUserId(userId);
     }
 
     public void deleteById(String id) {
-      userMetadataRepository.deleteById(id);
+      accountsRelationshipRepository.deleteById(id);
   }
 }
-*/

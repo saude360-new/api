@@ -67,15 +67,14 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType;
       @Column(name = "created_at", nullable = false, updatable = false)
       private LocalDateTime createdAt;
 
-          //eu acho que isso precisa poder ser nulo, se não ao criar vc tem que colocar algo
+
       @Column(name = "updated_at", nullable = false)
       private LocalDateTime updatedAt;
 
   
 
       public User() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+       
       }
 
 

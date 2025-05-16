@@ -21,6 +21,13 @@ public class AccountsRelationship {
   @JoinColumn(name = "patient_id", nullable = false, unique = true)
   private User patient;
 
+
+  public AccountsRelationship(User patient, User caregiver){
+    this.caregiver = caregiver;
+    this.patient = patient;
+  }
+
+  
   public int getAccounts_relationship_row_id() {
     return accounts_relationship_row_id;
   }

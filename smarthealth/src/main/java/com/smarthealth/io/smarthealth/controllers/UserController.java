@@ -9,10 +9,12 @@ import com.smarthealth.io.smarthealth.mappers.UserMapper;
 
 
 import com.smarthealth.io.smarthealth.models.UserMetadata;
+import com.smarthealth.io.smarthealth.services.AccountsRelationshipService;
 import com.smarthealth.io.smarthealth.services.UserMetadataService;
 import com.smarthealth.io.smarthealth.dtos.UserMetadataDto;
 import com.smarthealth.io.smarthealth.mappers.UserMetadataMapper;
 
+import com.smarthealth.io.smarthealth.models.AccountsRelationship;
 
 import com.smarthealth.io.smarthealth.models.UserMetadata;
 import com.smarthealth.io.smarthealth.services.UserMetadataService;
@@ -39,13 +41,15 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final UserMetadataService userMetadataService;
+    private final AccountsRelationshipService accountsRelationshipService;
 
  
  
-    public UserController(UserService userService, UserMapper userMapper,UserMetadataService userMetadataService,UserMetadataMapper userMetadataMapper ) {
+    public UserController(UserService userService, UserMapper userMapper,UserMetadataService userMetadataService,UserMetadataMapper userMetadataMapper, AccountsRelationshipService accountsRelationshipService ) {
         this.userService = userService;
         this.userMapper = userMapper;
         this.userMetadataService = userMetadataService;
+        this.accountsRelationshipService = accountsRelationshipService;
 
     }
 
@@ -64,18 +68,27 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto dto) {
 
-            if(dto.getPatientID() != null){
-
-              
-
-            }
+            try{
       
             User saved = userService.create(userMapper.fromDto(dto));
 
             UserResponseDto response = userMapper.toResponse(saved);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            
               
+
+            if (dto.getPatientEmail() != null && !dto.getPatientEmail().equals("null")){
+
+              accountsRelationshipService.create(dto.getPatientEmail(), response.getUserId());
+
+
+            }
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);}
+
+            catch (Exception e) {
+              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+          }
       }
 
 
@@ -111,12 +124,32 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getById(@PathVariable String id) {
 
-      Optional<User> optionalUser = userService.findById(id);
+      try{
+      User user = userService.findById(id)
+      .orElseThrow(() -> new RuntimeException("Usuario não encontrado: "+ id));
 
-      return optionalUser
-              .map(userMapper::toResponse)
-              .map(ResponseEntity::ok)
-              .orElse(ResponseEntity.notFound().build());
+      UserResponseDto response = userMapper.toResponse(user);
+      response.setMetadata(userMetadataService.findById(response.getUserId()));
+
+      switch (user.getUserRole()) {
+        case caregiver:
+            response.setAr(accountsRelationshipService.findByCaregiverId(id));
+          
+          break;
+      
+        case patient:
+           response.setAr(accountsRelationshipService.findByPatientId(id));
+
+          break;
+      }
+      
+
+      return ResponseEntity.status(HttpStatus.CREATED).body(response);}
+      catch(Exception e) {
+              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+      
     }
 
 

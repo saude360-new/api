@@ -5,6 +5,9 @@ package com.smarthealth.io.smarthealth.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.smarthealth.io.smarthealth.models.AccountsRelationship;
+import com.smarthealth.io.smarthealth.models.UserMetadata;
+
 public class UserResponseDto{
 
   private String userId;
@@ -12,9 +15,8 @@ public class UserResponseDto{
   private String lastName;
   private String emailAddress;
   private LocalDateTime createdAt;
-  private List<UserMetadataDto> metadata;
-
-  
+  private List<UserMetadata> metadata;
+  private List<AccountsRelationship> ar;
   public String getUserId() {
     return userId;
   }
@@ -45,17 +47,21 @@ public class UserResponseDto{
   public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
-  public List<UserMetadataDto> getMetadata() {
+  public List<UserMetadata> getMetadata() {
     return metadata;
   }
-  public void setMetadata(List<UserMetadataDto> metadata) {
+  public void setMetadata(List<UserMetadata> metadata) {
     this.metadata = metadata;
   }
+  public List<AccountsRelationship> getAr() {
+    return ar;
+  }
+  public void setAr(List<AccountsRelationship> ar) {
+    this.ar = ar;
+  }
+
 
   
   
-
   
-
-
 }
