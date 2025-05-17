@@ -49,17 +49,20 @@ public class UserService {
 
 
 
-    public Optional<User> authenticate(UserLoginDto dto) {
-      Optional<User> optionalUser = findByEmail(dto.getEmailAdress());
+    public String authenticate(UserLoginDto dto) {
+      User user = findByEmail(dto.getEmailAddress())
+      .orElseThrow(() -> new RuntimeException("Usuário não encontrado: "));
+
+      
   
-      if (optionalUser.isPresent()) {
-          User user = optionalUser.get();
+      
+          
           if (user.getPasswordDigest().equals("hashed_" + dto.getPassword())) {
-              return Optional.of(user);
+              return "tokenAtivo";
           }
-      }
+      
   
-      return Optional.empty();
+      return "tokenInativo";
   }
   
 

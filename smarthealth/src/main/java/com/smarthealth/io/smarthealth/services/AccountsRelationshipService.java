@@ -3,6 +3,8 @@ package com.smarthealth.io.smarthealth.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.smarthealth.io.smarthealth.dtos.UserMetadataDto;
 import com.smarthealth.io.smarthealth.mappers.UserMetadataMapper;
 import com.smarthealth.io.smarthealth.models.AccountsRelationship;
@@ -12,7 +14,7 @@ import com.smarthealth.io.smarthealth.models.UserMetadata;
 
 
 
-
+@Service
 public class AccountsRelationshipService {
   private final AccountsRelationshipRepository accountsRelationshipRepository;
   private final UserService userService;

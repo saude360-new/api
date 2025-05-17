@@ -53,18 +53,6 @@ public class UserController {
 
     }
 
-  
-
-
-
-
-
-
-
-
-
-
-
     @PostMapping
     public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto dto) {
 
@@ -91,14 +79,6 @@ public class UserController {
           }
       }
 
-
-
-
-
-
-
-
-
     @GetMapping 
     public ResponseEntity<List<UserResponseDto>> getAll() {
     List<User> users = userService.findAll();
@@ -107,19 +87,6 @@ public class UserController {
             .toList();
     return ResponseEntity.ok(dtoList);
     }
-
-    
-
-
-
-
-
-
-
-
-
-
-
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getById(@PathVariable String id) {
@@ -147,74 +114,36 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.CREATED).body(response);}
       catch(Exception e) {
               return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-
-      
+        }  
     }
-
-
-
-
-
-
-
-
-
-
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-    
-
-
-
-
-
-
-
-
-
-
-
 
     @PostMapping("/login")
     public ResponseEntity<UserResponseDto> login(@RequestBody UserLoginDto loginDto) {
     
-      System.out.println(loginDto.getEmailAdress()+ loginDto.getPassword());
       
-      Optional<User> optionalUser = userService.authenticate(loginDto);
+      
+      String token = userService.authenticate(loginDto);
+      System.out.println(token);
+ 
 
-    if (optionalUser.isEmpty()) {
+
+    if (token.equals("tokenInativo")) {
+        
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    User user = optionalUser.get();
+    
+    User user = userService.findByEmail(loginDto.getEmailAddress())
+    .orElseThrow(() -> new RuntimeException("Usuário não encontrado: "));
+
     UserResponseDto dto = userMapper.toResponse(user);
 
     return ResponseEntity.ok(dto);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    public ResponseEntity<List<UserMetadataDto>> getAllMetada(String id) {
-    List<UserMetadata> userMetadata = userMetadataService.findById(id);
-    List<UserMetadataDto> dtoList = userMetadata.stream()
-    .map(UserMetadataMapper::toDto) 
-            .toList();
-    return ResponseEntity.ok(dtoList);
-    }
 }

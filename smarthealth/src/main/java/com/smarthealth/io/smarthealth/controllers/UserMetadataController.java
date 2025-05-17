@@ -26,16 +26,30 @@ import java.util.Optional;
 public class UserMetadataController {
 
   private final UserMetadataService userMetadataService;
-    private final UserMetadataMapper userMetadataMapper;
+  private final UserMetadataMapper userMetadataMapper;
+  private final UserService userService;
  
  
-    public UserMetadataController(UserMetadataService userMetadataService, UserMetadataMapper userMetadataMapper ) {
+    public UserMetadataController(UserMetadataService userMetadataService, UserMetadataMapper userMetadataMapper, UserService userService ) {
         this.userMetadataService = userMetadataService;
         this.userMetadataMapper = userMetadataMapper;
+        this.userService = userService;
 
     }
 
-    @GetMapping 
+    @PostMapping
+    public ResponseEntity<UserMetadataDto> create(@RequestBody UserMetadataDto dto){
+
+
+      UserMetadata created = userMetadataService.create(dto);
+
+      return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+
+    }
+
+
+
+    @GetMapping("/{id}")
     public ResponseEntity<List<UserMetadataDto>> getAll(String id) {
     List<UserMetadata> userMetadata = userMetadataService.findById(id);
     List<UserMetadataDto> dtoList = userMetadata.stream()

@@ -7,17 +7,17 @@ import jakarta.validation.constraints.*;
 public class UserLoginDto {
 
   @NotBlank
-  private String emailAdress;
+  private String emailAddress;
   
   @NotBlank
   private String password;
 
-  public String getEmailAdress() {
-    return emailAdress;
+  public String getEmailAddress() {
+    return emailAddress;
   }
 
-  public void setEmailAdress(String emailAdress) {
-    this.emailAdress = emailAdress;
+  public void setEmailAdress(String emailAddress) {
+    this.emailAddress = emailAddress;
   }
 
   public String getPassword() {
