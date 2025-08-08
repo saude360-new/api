@@ -16,7 +16,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleAllExceptions(Exception ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date());
-        body.put("path", request.getDescription(false).replace("uri=", ""));
         body.put("exception", ex.getClass().getSimpleName());
         body.put("message", ex.getMessage());
         List<String> stack = Arrays.stream(ex.getStackTrace())

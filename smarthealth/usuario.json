@@ -1,4 +1,10 @@
 {
-  "password": "123",
-  "emailAdress": "maria@example.com"
+  "firstName": "Victor",
+  "lastName": "Silva",
+  "birthDate": "2000-01-15",
+  "gender": "male",
+  "emailAddress": "victor@example.com",
+  "password": "password_123",
+  "salt": "unique_salt_value_123",
+  "userRole": "patient"
 }

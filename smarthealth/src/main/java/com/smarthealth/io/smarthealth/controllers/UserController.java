@@ -7,34 +7,17 @@ import com.smarthealth.io.smarthealth.dtos.UserLoginDto;
 import com.smarthealth.io.smarthealth.dtos.UserResponseDto;
 import com.smarthealth.io.smarthealth.mappers.UserMapper;
 
-
-import com.smarthealth.io.smarthealth.models.UserMetadata;
 import com.smarthealth.io.smarthealth.services.AccountsRelationshipService;
 import com.smarthealth.io.smarthealth.services.UserMetadataService;
-import com.smarthealth.io.smarthealth.dtos.UserMetadataDto;
-import com.smarthealth.io.smarthealth.mappers.UserMetadataMapper;
-
-import com.smarthealth.io.smarthealth.models.AccountsRelationship;
-
-import com.smarthealth.io.smarthealth.models.UserMetadata;
-import com.smarthealth.io.smarthealth.services.UserMetadataService;
-import com.smarthealth.io.smarthealth.dtos.UserMetadataDto;
-import com.smarthealth.io.smarthealth.dtos.UserResponseDto;
-import com.smarthealth.io.smarthealth.mappers.UserMapper;
-import com.smarthealth.io.smarthealth.mappers.UserMetadataMapper;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-
-//diz que ela vai receber requisiçoes e devolver json
+// Diz que a classe é um controller REST que responde com JSON
 @RestController
-
-
 @RequestMapping("/users")
 public class UserController {
 
@@ -43,78 +26,53 @@ public class UserController {
     private final UserMetadataService userMetadataService;
     private final AccountsRelationshipService accountsRelationshipService;
 
- 
- 
-    public UserController(UserService userService, UserMapper userMapper,UserMetadataService userMetadataService,UserMetadataMapper userMetadataMapper, AccountsRelationshipService accountsRelationshipService ) {
+    public UserController(
+            UserService userService,
+            UserMapper userMapper,
+            UserMetadataService userMetadataService,
+            AccountsRelationshipService accountsRelationshipService
+    ) {
         this.userService = userService;
         this.userMapper = userMapper;
         this.userMetadataService = userMetadataService;
         this.accountsRelationshipService = accountsRelationshipService;
-
     }
 
     @PostMapping
     public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto dto) {
+        User saved = userService.create(userMapper.fromDto(dto));
+        UserResponseDto response = userMapper.toResponse(saved);
 
-            try{
-      
-            User saved = userService.create(userMapper.fromDto(dto));
+        if (dto.getPatientEmail() != null && !dto.getPatientEmail().equalsIgnoreCase("null")) {
+            accountsRelationshipService.create(dto.getPatientEmail(), response.getUserId());
+        }
 
-            UserResponseDto response = userMapper.toResponse(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 
-            
-              
-
-            if (dto.getPatientEmail() != null && !dto.getPatientEmail().equals("null")){
-
-              accountsRelationshipService.create(dto.getPatientEmail(), response.getUserId());
-
-
-            }
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);}
-
-            catch (Exception e) {
-              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-          }
-      }
-
-    @GetMapping 
+    @GetMapping
     public ResponseEntity<List<UserResponseDto>> getAll() {
-    List<User> users = userService.findAll();
-    List<UserResponseDto> dtoList = users.stream()
-    .map(userMapper::toResponse) 
-            .toList();
-    return ResponseEntity.ok(dtoList);
+        List<User> users = userService.findAll();
+        List<UserResponseDto> dtoList = users.stream()
+                .map(userMapper::toResponse)
+                .toList();
+        return ResponseEntity.ok(dtoList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getById(@PathVariable String id) {
+        User user = userService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + id));
 
-      try{
-      User user = userService.findById(id)
-      .orElseThrow(() -> new RuntimeException("Usuario não encontrado: "+ id));
+        UserResponseDto response = userMapper.toResponse(user);
+        response.setMetadata(userMetadataService.findById(response.getUserId()));
 
-      UserResponseDto response = userMapper.toResponse(user);
-      response.setMetadata(userMetadataService.findById(response.getUserId()));
+        switch (user.getUserRole()) {
+            case caregiver -> response.setAr(accountsRelationshipService.findByCaregiverId(id));
+            case patient -> response.setAr(accountsRelationshipService.findByPatientId(id));
+        }
 
-      switch (user.getUserRole()) {
-        case caregiver:
-            response.setAr(accountsRelationshipService.findByCaregiverId(id));
-          
-          break;
-      
-        case patient:
-           response.setAr(accountsRelationshipService.findByPatientId(id));
-
-          break;
-      }
-      
-
-      return ResponseEntity.status(HttpStatus.CREATED).body(response);}
-      catch(Exception e) {
-              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }  
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
@@ -125,25 +83,21 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserResponseDto> login(@RequestBody UserLoginDto loginDto) {
-    
-      
-      
-      String token = userService.authenticate(loginDto);
-      System.out.println(token);
- 
+        String token = userService.authenticate(loginDto);
+        System.out.println("Token gerado: " + token);
 
+        if ("tokenInativo".equals(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
-    if (token.equals("tokenInativo")) {
-        
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        User user = userService.findByEmail(loginDto.getEmailAddress())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        UserResponseDto dto = userMapper.toResponse(user);
+
+        // Aqui você pode incluir o token no DTO, se quiser
+        // dto.setToken(token);
+
+        return ResponseEntity.ok(dto);
     }
-
-    
-    User user = userService.findByEmail(loginDto.getEmailAddress())
-    .orElseThrow(() -> new RuntimeException("Usuário não encontrado: "));
-
-    UserResponseDto dto = userMapper.toResponse(user);
-
-    return ResponseEntity.ok(dto);
-}
 }

@@ -1,62 +1,50 @@
 package com.smarthealth.io.smarthealth.controllers;
 
 import com.smarthealth.io.smarthealth.models.Devices;
-import com.smarthealth.io.smarthealth.models.User;
 import com.smarthealth.io.smarthealth.services.DevicesService;
 import com.smarthealth.io.smarthealth.dtos.DevicesCreateDto;
 import com.smarthealth.io.smarthealth.dtos.DevicesResponseDto;
-import com.smarthealth.io.smarthealth.dtos.UserCreateDto;
-import com.smarthealth.io.smarthealth.dtos.UserResponseDto;
 import com.smarthealth.io.smarthealth.mappers.DevicesMapper;
-import com.smarthealth.io.smarthealth.mappers.UserMapper;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @RestController
-
 @RequestMapping("/devices")
 public class DevicesController {
 
-  private final DevicesService devicesService;
+    private final DevicesService devicesService;
 
- 
-    public DevicesController(DevicesService devicesService ) {
+    public DevicesController(DevicesService devicesService) {
         this.devicesService = devicesService;
     }
 
-
-    @PostMapping 
-    public ResponseEntity<DevicesResponseDto> create(@RequestBody DevicesCreateDto devices) { 
-        Devices created = devicesService.create(devices);
-       return ResponseEntity.ok(DevicesMapper.toResponse(created));
+    @PostMapping
+    public ResponseEntity<DevicesResponseDto> create(@RequestBody DevicesCreateDto devicesDto) {
+        Devices created = devicesService.create(devicesDto);
+        DevicesResponseDto response = DevicesMapper.toResponse(created);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
-    @GetMapping 
+    @GetMapping
     public ResponseEntity<List<DevicesResponseDto>> getAll() {
-    List<Devices> devices = devicesService.findAll();
-    List<DevicesResponseDto> dtoList = devices.stream()
-    .map(DevicesMapper::toResponse) 
-            .toList();
-    return ResponseEntity.ok(dtoList);
+        List<Devices> devicesList = devicesService.findAll();
+        List<DevicesResponseDto> dtoList = devicesList.stream()
+                .map(DevicesMapper::toResponse)
+                .toList();
+        return ResponseEntity.ok(dtoList);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<DevicesResponseDto> getById(@PathVariable String id) {
-
-      Optional<Devices> optionalDevices = devicesService.findById(id);
-      return optionalDevices
-              .map(DevicesMapper::toResponse)
-              .map(ResponseEntity::ok)
-              .orElse(ResponseEntity.notFound().build());
+        return devicesService.findById(id)
+                .map(DevicesMapper::toResponse)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
-  
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
