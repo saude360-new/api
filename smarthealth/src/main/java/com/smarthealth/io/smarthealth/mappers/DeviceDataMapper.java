@@ -5,11 +5,24 @@ import com.smarthealth.io.smarthealth.models.Devices;
 import com.smarthealth.io.smarthealth.dtos.DeviceDataDto;
 import com.smarthealth.io.smarthealth.dtos.DeviceDataCreateDto;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
+/**
+ * Mapper para conversão entre entidades DeviceData e DTOs.
+ */
+@Component
 public class DeviceDataMapper {
 
-    public static DeviceDataDto toDto(DeviceData deviceData) {
+    /**
+     * Converte uma entidade DeviceData para DTO.
+     */
+    public DeviceDataDto toDto(DeviceData deviceData) {
+        if (deviceData == null) {
+            return null;
+        }
+        
         DeviceDataDto dto = new DeviceDataDto();
         dto.setPayloadId(deviceData.getPayload_id());
         dto.setDeviceId(deviceData.getDevices().getDeviceId());
@@ -22,7 +35,14 @@ public class DeviceDataMapper {
         return dto;
     }
 
-    public static DeviceData fromCreateDto(DeviceDataCreateDto dto, Devices device) {
+    /**
+     * Converte um DTO de criação para entidade DeviceData.
+     */
+    public DeviceData fromCreateDto(DeviceDataCreateDto dto, Devices device) {
+        if (dto == null) {
+            return null;
+        }
+        
         DeviceData entity = new DeviceData();
         entity.setDevices(device);
         entity.setTime_serie(dto.getTimeSerie());
@@ -33,3 +53,4 @@ public class DeviceDataMapper {
         return entity;
     }
 }
+
