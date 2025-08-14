@@ -18,7 +18,7 @@ public class DeviceData {
   private Devices devices;
 
   
-    @Column(name = "sequence", nullable = false,updatable = false, insertable = false)
+    @Column(name = "sequence", nullable = false)
     private int sequence;
 
   public int getSequence() {

@@ -6,6 +6,8 @@ import com.smarthealth.io.smarthealth.exceptions.ResourceNotFoundException;
 import com.smarthealth.io.smarthealth.exceptions.UserAlreadyExistsException;
 import com.smarthealth.io.smarthealth.models.User;
 import com.smarthealth.io.smarthealth.repositories.UserRepository;
+import com.smarthealth.io.smarthealth.services.AccountsRelationshipService;
+import com.smarthealth.io.smarthealth.models.AccountsRelationship;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * Serviço para gerenciamento de usuários.
@@ -26,11 +29,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AccountsRelationshipService arService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AccountsRelationshipService arService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.arService = arService;
     }
 
     /**
@@ -74,6 +79,11 @@ public class UserService {
         return userRepository.findByEmailAddress(email);
     }
 
+    private Supplier ResourceNotFoundException(String string, String string2) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'ResourceNotFoundException'");
+    }
+
     /**
      * Remove um usuário por ID.
      */
@@ -82,6 +92,21 @@ public class UserService {
         
         if (!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("Usuário", id);
+        }
+
+        final User user = findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário", id));
+
+        logger.info("Removendo relações do usuario com ID: {}", id);
+        
+        if(user.getUserRole().toString().equals("caregiver")){
+          List<AccountsRelationship> lista =  arService.findByCaregiverId(id);
+
+          lista.forEach(ar -> arService.deleteById(ar.getAccounts_relationship_row_id()));
+
+        }else if(user.getUserRole().toString().equals("patient")){
+          List<AccountsRelationship> lista =  arService.findByPatientId(id);
+
+          lista.forEach(ar -> arService.deleteById(ar.getAccounts_relationship_row_id()));
         }
         
         userRepository.deleteById(id);

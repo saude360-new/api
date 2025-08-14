@@ -3,10 +3,12 @@ package com.smarthealth.io.smarthealth.controllers;
 import com.smarthealth.io.smarthealth.dtos.UserCreateDto;
 import com.smarthealth.io.smarthealth.dtos.UserLoginDto;
 import com.smarthealth.io.smarthealth.dtos.UserResponseDto;
+import com.smarthealth.io.smarthealth.exceptions.InvalidCredentialsException;
 import com.smarthealth.io.smarthealth.exceptions.ResourceNotFoundException;
 import com.smarthealth.io.smarthealth.mappers.UserMapper;
 import com.smarthealth.io.smarthealth.models.User;
 import com.smarthealth.io.smarthealth.services.UserService;
+import com.smarthealth.io.smarthealth.services.AccountsRelationshipService;
 
 import jakarta.validation.Valid;
 
@@ -18,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * Controller REST para gerenciamento de usuários.
@@ -30,11 +34,13 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+    private final AccountsRelationshipService accountsRelationshipService;
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService, UserMapper userMapper, AccountsRelationshipService accountsRelationshipService  ) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.accountsRelationshipService = accountsRelationshipService;
     }
 
     /**
@@ -46,9 +52,22 @@ public class UserController {
         
         User user = userMapper.fromDto(dto);
         User savedUser = userService.create(user);
-        UserResponseDto response = userMapper.toResponse(savedUser);
+        UserResponseDto response = userMapper.toResponse(savedUser, savedUser.getUserRole().toString());
+         logger.info("Usuário criado com sucesso. ID: {}", savedUser.getUserId());
 
-        logger.info("Usuário criado com sucesso. ID: {}", savedUser.getUserId());
+
+        if (dto.getPatientEmail() != null && !dto.getPatientEmail().trim().isEmpty()) {
+    
+
+    accountsRelationshipService.createRelationship(
+            dto.getPatientEmail(),
+            dto.getEmailAddress()
+    );
+    
+}
+
+
+       
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -60,9 +79,9 @@ public class UserController {
         logger.debug("Recebida requisição para buscar todos os usuários");
         
         List<User> users = userService.findAll();
-        List<UserResponseDto> dtoList = users.stream()
-                .map(userMapper::toResponse)
-                .toList();
+      List<UserResponseDto> dtoList = users.stream()
+          .map(user -> userMapper.toResponse(user, user.getUserRole().toString()))
+          .toList();
         
         return ResponseEntity.ok(dtoList);
     }
@@ -77,7 +96,7 @@ public class UserController {
         User user = userService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário", id));
 
-        UserResponseDto response = userMapper.toResponse(user);
+        UserResponseDto response = userMapper.toResponse(user, user.getUserRole().toString() );
         return ResponseEntity.ok(response);
     }
 
@@ -104,7 +123,7 @@ public class UserController {
         User user = userService.findByEmail(loginDto.getEmailAddress())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário", loginDto.getEmailAddress()));
 
-        UserResponseDto response = userMapper.toResponse(user);
+        UserResponseDto response = userMapper.toResponse(user, user.getUserRole().toString());
         
         // TODO: Incluir token na resposta quando implementar JWT completamente
         logger.info("Login realizado com sucesso para usuário: {}", user.getUserId());

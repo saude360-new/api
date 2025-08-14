@@ -91,4 +91,3 @@ public class DeviceDataService {
         logger.info("Dados de dispositivo removidos com sucesso. ID: {}", id);
     }
 }
-

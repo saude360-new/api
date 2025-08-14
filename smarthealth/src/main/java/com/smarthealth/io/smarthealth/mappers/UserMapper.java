@@ -3,6 +3,7 @@ package com.smarthealth.io.smarthealth.mappers;
 import com.smarthealth.io.smarthealth.dtos.UserCreateDto;
 import com.smarthealth.io.smarthealth.dtos.UserResponseDto;
 import com.smarthealth.io.smarthealth.models.User;
+import com.smarthealth.io.smarthealth.services.AccountsRelationshipService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,11 +21,13 @@ public class UserMapper {
 
     private final PasswordEncoder passwordEncoder;
     private final SecureRandom secureRandom;
+    private final AccountsRelationshipService arService;
 
     @Autowired
-    public UserMapper(PasswordEncoder passwordEncoder) {
+    public UserMapper(PasswordEncoder passwordEncoder, AccountsRelationshipService arService) {
         this.passwordEncoder = passwordEncoder;
         this.secureRandom = new SecureRandom();
+        this.arService = arService;
     }
 
     /**
@@ -76,7 +79,7 @@ public class UserMapper {
      * Converte uma entidade User para DTO de resposta.
      * Remove informações sensíveis da resposta.
      */
-    public UserResponseDto toResponse(User user) {
+    public UserResponseDto toResponse(User user, String role) {
         if (user == null) {
             return null;
         }
@@ -87,6 +90,20 @@ public class UserMapper {
         dto.setLastName(user.getLastName());
         dto.setEmailAddress(user.getEmailAddress());
         dto.setCreatedAt(user.getCreatedAt());
+
+        if(role.equals("caregiver")){
+
+          dto.setAr(arService.findByCaregiverId(user.getUserId()));
+
+        }else if(role.equals("patient")){
+
+          dto.setAr(arService.findByPatientId(user.getUserId()));
+
+        }else{
+          dto.setAr(null);
+        }
+        
+        
         
         return dto;
     }
