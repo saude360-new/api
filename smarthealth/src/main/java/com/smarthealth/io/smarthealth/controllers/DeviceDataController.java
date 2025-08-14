@@ -6,6 +6,8 @@ import com.smarthealth.io.smarthealth.exceptions.ResourceNotFoundException;
 import com.smarthealth.io.smarthealth.mappers.DeviceDataMapper;
 import com.smarthealth.io.smarthealth.models.DeviceData;
 import com.smarthealth.io.smarthealth.services.DeviceDataService;
+import com.smarthealth.io.smarthealth.services.DevicesService;
+
 
 import jakarta.validation.Valid;
 
@@ -29,11 +31,18 @@ public class DeviceDataController {
 
     private final DeviceDataService deviceDataService;
     private final DeviceDataMapper deviceDataMapper;
+    private final DevicesService devicesService;
 
     @Autowired
-    public DeviceDataController(DeviceDataService deviceDataService, DeviceDataMapper deviceDataMapper) {
+    public DeviceDataController(DeviceDataService deviceDataService, DeviceDataMapper deviceDataMapper,DevicesService devicesService) {
         this.deviceDataService = deviceDataService;
         this.deviceDataMapper = deviceDataMapper;
+        this.devicesService = devicesService;
+    }
+
+    public void checkDeviceID(String deviceId){
+
+      devicesService.findById(deviceId).orElseThrow(() -> new ResourceNotFoundException("Dispositivo: {}", deviceId));
     }
 
     /**
@@ -83,12 +92,59 @@ public class DeviceDataController {
     @GetMapping("/by-device/{deviceId}")
     public ResponseEntity<List<DeviceDataDto>> getByDeviceId(@PathVariable String deviceId) {
         logger.debug("Recebida requisição para buscar dados do dispositivo: {}", deviceId);
+
+        checkDeviceID(deviceId);
         
         List<DeviceDataDto> dtoList = deviceDataService.findByDeviceId(deviceId).stream()
                 .map(deviceDataMapper::toDto)
                 .toList();
         
         return ResponseEntity.ok(dtoList);
+    }
+
+    @GetMapping("/by-device/{deviceId}/oximetry")
+    public ResponseEntity<String> getByDeviceIdOximetry(@PathVariable String deviceId) {
+        logger.debug("Recebida requisição para buscar dados de oximetro do dispositivo: {}", deviceId);
+        
+        checkDeviceID(deviceId);
+
+        String dado = deviceDataService.findOximetryGraphByDeviceId(deviceId);
+
+        if (dado == null){
+          dado = "[]";
+        }
+        
+        return ResponseEntity.ok(dado);
+    }
+
+    @GetMapping("/by-device/{deviceId}/temp")
+    public ResponseEntity<String> getByDeviceIdTemp(@PathVariable String deviceId) {
+        logger.debug("Recebida requisição para buscar dados de temperatura do dispositivo: {}", deviceId);
+        
+        checkDeviceID(deviceId);
+
+        String dado = deviceDataService.findTempGraphByDeviceId(deviceId);
+
+        if (dado == null){
+          dado = "[]";
+        }
+        
+        return ResponseEntity.ok(dado);
+    }
+
+    @GetMapping("/by-device/{deviceId}/acceleration")
+    public ResponseEntity<String> getByDeviceIdAcceleration(@PathVariable String deviceId) {
+        logger.debug("Recebida requisição para buscar dados de aceleracao do dispositivo: {}", deviceId);
+        
+        checkDeviceID(deviceId);
+        
+        String dado = deviceDataService.findAccelerationGraphByDeviceId(deviceId);
+
+        if (dado == null){
+          dado = "[]";
+        }
+        
+        return ResponseEntity.ok(dado);
     }
 
     /**

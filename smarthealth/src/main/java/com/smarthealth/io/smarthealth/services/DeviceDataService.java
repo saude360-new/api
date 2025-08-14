@@ -69,6 +69,21 @@ public class DeviceDataService {
         return deviceDataRepository.findById(id);
     }
 
+    public String findOximetryGraphByDeviceId(String id) {
+        logger.debug("Buscando dados de oximetro do dispositivo por ID: {}", id);
+        return deviceDataRepository.getOximetryGraphWithDate(id);
+    }
+
+    public String findTempGraphByDeviceId(String id) {
+        logger.debug("Buscando dados de temperatura do dispositivo por ID: {}", id);
+        return deviceDataRepository.getTempGraphWithDate(id);
+    }
+
+    public String findAccelerationGraphByDeviceId(String id) {
+        logger.debug("Buscando dados de aceleracao do dispositivo por ID: {}", id);
+        return deviceDataRepository.getAccelerationGraphWithDate(id);
+    }
+
     /**
      * Busca dados por ID do dispositivo.
      */

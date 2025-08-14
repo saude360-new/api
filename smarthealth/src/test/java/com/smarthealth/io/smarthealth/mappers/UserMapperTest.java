@@ -96,7 +96,7 @@ class UserMapperTest {
     @Test
     void toResponse_ShouldMapUserToUserResponseDto() {
         // Act
-        UserResponseDto result = userMapper.toResponse(user);
+        UserResponseDto result = userMapper.toResponse(user, user.getUserRole().toString());
 
         // Assert
         assertNotNull(result);
@@ -110,7 +110,7 @@ class UserMapperTest {
     @Test
     void toResponse_ShouldReturnNull_WhenUserIsNull() {
         // Act
-        UserResponseDto result = userMapper.toResponse(null);
+        UserResponseDto result = userMapper.toResponse(null,null);
 
         // Assert
         assertNull(result);
