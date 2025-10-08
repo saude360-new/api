@@ -29,11 +29,12 @@ public class DeviceDataController {
 
     private static final Logger logger = LoggerFactory.getLogger(DeviceDataController.class);
 
+    @Autowired
     private final DeviceDataService deviceDataService;
     private final DeviceDataMapper deviceDataMapper;
     private final DevicesService devicesService;
 
-    @Autowired
+    
     public DeviceDataController(DeviceDataService deviceDataService, DeviceDataMapper deviceDataMapper,DevicesService devicesService) {
         this.deviceDataService = deviceDataService;
         this.deviceDataMapper = deviceDataMapper;
