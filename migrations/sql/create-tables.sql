@@ -60,14 +60,24 @@ CREATE TABLE IF NOT EXISTS data_exchange_logs (
   FOREIGN KEY (device_id) REFERENCES devices(device_id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
 
+CREATE TABLE IF NOT EXISTS fall_data (
+  payload_id VARCHAR(128) NOT NULL UNIQUE PRIMARY KEY,
+  device_id VARCHAR(128) NOT NULL,
+  sequence SERIAL NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  intensity VARCHAR(20) NOT NULL,
+  FOREIGN KEY (device_id) REFERENCES devices(device_id) ON DELETE CASCADE ON UPDATE RESTRICT
+);
+
 CREATE TABLE IF NOT EXISTS device_data (
   payload_id VARCHAR(128) NOT NULL UNIQUE PRIMARY KEY,
   device_id VARCHAR(128) NOT NULL,
   sequence SERIAL NOT NULL,
   time_serie VARCHAR(8) NOT NULL CHECK (time_serie IN ('day', 'week', 'month', 'year')),
-  oximetry_graph JSON NOT NULL,
-  temp_graph JSON NOT NULL,
-  acceleration_graph JSON NOT NULL,
+  oximetry_graph TEXT NOT NULL,
+  bpm_graph TEXT NOT NULL,
+  temp_graph TEXT NOT NULL,
+  acceleration_graph TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL,
   FOREIGN KEY (device_id) REFERENCES devices(device_id) ON DELETE CASCADE ON UPDATE RESTRICT
 );

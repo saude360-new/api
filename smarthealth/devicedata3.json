@@ -1,0 +1,17 @@
+{
+  "bluetoothChipUid": "BT-UID-CX4529",
+  "serialNumber": "SN-2025-003",
+  "bluetoothVersion": "5.0",
+  "lastConnected": "2025-11-07T13:50:00",
+  "rssi": -78,
+  "deviceStatus": "disconnected",
+  "pairingKey": "PAIR-003-KEY",
+  "firmwareVersion": "1.1.0",
+  "lastError": "Timeout ao enviar dados",
+  "connectionError": "Conexão perdida inesperadamente",
+  "registeredBy": {
+    "userId": "user-103"
+  },
+  "createdAt": "2025-10-31T16:40:00",
+  "updatedAt": "2025-11-07T13:55:00"
+}

@@ -33,18 +33,17 @@ public class SecurityConfig {
      * Configura a cadeia de filtros de segurança.
      */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/users/login", "/users").permitAll()
-                .anyRequest().authenticated()
-            );
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        .csrf(csrf -> csrf.disable())
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(authz -> authz
+            .anyRequest().permitAll() // 🔓 Libera todas as rotas
+        );
 
-        return http.build();
-    }
+    return http.build();
+}
 
     /**
      * Configura CORS para permitir requisições de diferentes origens.
@@ -61,5 +60,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+    
 }
 

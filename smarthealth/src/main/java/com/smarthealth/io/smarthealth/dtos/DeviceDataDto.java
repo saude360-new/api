@@ -10,69 +10,33 @@ public class DeviceDataDto {
     private String oximetryGraph;
     private String tempGraph;
     private String accelerationGraph;
+    private String bpmGraph;
     private LocalDateTime createdAt;
 
-    public String getPayloadId() {
-        return payloadId;
-    }
+    public String getPayloadId() { return payloadId; }
+    public void setPayloadId(String payloadId) { this.payloadId = payloadId; }
 
-    public void setPayloadId(String payloadId) {
-        this.payloadId = payloadId;
-    }
+    public String getDeviceId() { return deviceId; }
+    public void setDeviceId(String deviceId) { this.deviceId = deviceId; }
 
-    public String getDeviceId() {
-        return deviceId;
-    }
+    public int getSequence() { return sequence; }
+    public void setSequence(int sequence) { this.sequence = sequence; }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
+    public String getTimeSerie() { return timeSerie; }
+    public void setTimeSerie(String timeSerie) { this.timeSerie = timeSerie; }
 
-    public int getSequence() {
-        return sequence;
-    }
+    public String getOximetryGraph() { return oximetryGraph; }
+    public void setOximetryGraph(String oximetryGraph) { this.oximetryGraph = oximetryGraph; }
 
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
-    }
+    public String getTempGraph() { return tempGraph; }
+    public void setTempGraph(String tempGraph) { this.tempGraph = tempGraph; }
 
-    public String getTimeSerie() {
-        return timeSerie;
-    }
+    public String getAccelerationGraph() { return accelerationGraph; }
+    public void setAccelerationGraph(String accelerationGraph) { this.accelerationGraph = accelerationGraph; }
 
-    public void setTimeSerie(String timeSerie) {
-        this.timeSerie = timeSerie;
-    }
+    public String getBpmGraph() { return bpmGraph; }
+    public void setBpmGraph(String bpmGraph) { this.bpmGraph = bpmGraph; }
 
-    public String getOximetryGraph() {
-        return oximetryGraph;
-    }
-
-    public void setOximetryGraph(String oximetryGraph) {
-        this.oximetryGraph = oximetryGraph;
-    }
-
-    public String getTempGraph() {
-        return tempGraph;
-    }
-
-    public void setTempGraph(String tempGraph) {
-        this.tempGraph = tempGraph;
-    }
-
-    public String getAccelerationGraph() {
-        return accelerationGraph;
-    }
-
-    public void setAccelerationGraph(String accelerationGraph) {
-        this.accelerationGraph = accelerationGraph;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

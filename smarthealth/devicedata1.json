@@ -1,0 +1,17 @@
+{
+  "bluetoothChipUid": "BT-UID-AX9821",
+  "serialNumber": "SN-2025-001",
+  "bluetoothVersion": "5.3",
+  "lastConnected": null,
+  "rssi": -45,
+  "deviceStatus": "pairing",
+  "pairingKey": "PAIR-001-KEY",
+  "firmwareVersion": "1.0.0",
+  "lastError": null,
+  "connectionError": null,
+  "registeredBy": {
+    "userId": "user-101"
+  },
+  "createdAt": "2025-11-07T13:00:00",
+  "updatedAt": "2025-11-07T13:00:00"
+}

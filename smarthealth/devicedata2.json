@@ -1,0 +1,17 @@
+{
+  "bluetoothChipUid": "BT-UID-BX1287",
+  "serialNumber": "SN-2025-002",
+  "bluetoothVersion": "5.2",
+  "lastConnected": "2025-11-07T14:05:00",
+  "rssi": -60,
+  "deviceStatus": "connected",
+  "pairingKey": "PAIR-002-KEY",
+  "firmwareVersion": "1.2.4",
+  "lastError": null,
+  "connectionError": null,
+  "registeredBy": {
+    "userId": "user-102"
+  },
+  "createdAt": "2025-11-06T09:20:00",
+  "updatedAt": "2025-11-07T14:05:00"
+}

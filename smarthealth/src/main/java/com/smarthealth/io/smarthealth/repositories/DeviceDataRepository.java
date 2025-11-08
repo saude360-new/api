@@ -53,6 +53,20 @@ public interface DeviceDataRepository extends JpaRepository<DeviceData, String> 
     AND created_at >= NOW() - INTERVAL '24 HOURS'
     """, nativeQuery = true)
   String getAccelerationGraphWithDate(@Param("deviceId") String deviceId);
+
+   @Query(value = """
+    SELECT jsonb_agg(
+        jsonb_build_object(
+            'bpm_graph', bpm_graph,
+            'created_at', created_at
+        )
+        ORDER BY created_at
+    )
+    FROM device_data
+    WHERE device_id = :deviceId
+    AND created_at >= NOW() - INTERVAL '24 HOURS'
+    """, nativeQuery = true)
+  String getBpmGraphWithDate(@Param("deviceId") String deviceId);
 }
 
   

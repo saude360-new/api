@@ -6,44 +6,23 @@ public class DeviceDataCreateDto {
     private String oximetryGraph;
     private String tempGraph;
     private String accelerationGraph;
+    private String bpmGraph;
 
-    public String getDeviceId() {
-        return deviceId;
-    }
+    public String getDeviceId() { return deviceId; }
+    public void setDeviceId(String deviceId) { this.deviceId = deviceId; }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
+    public String getTimeSerie() { return timeSerie; }
+    public void setTimeSerie(String timeSerie) { this.timeSerie = timeSerie; }
 
-    public String getTimeSerie() {
-        return timeSerie;
-    }
+    public String getOximetryGraph() { return oximetryGraph; }
+    public void setOximetryGraph(String oximetryGraph) { this.oximetryGraph = oximetryGraph; }
 
-    public void setTimeSerie(String timeSerie) {
-        this.timeSerie = timeSerie;
-    }
+    public String getTempGraph() { return tempGraph; }
+    public void setTempGraph(String tempGraph) { this.tempGraph = tempGraph; }
 
-    public String getOximetryGraph() {
-        return oximetryGraph;
-    }
+    public String getAccelerationGraph() { return accelerationGraph; }
+    public void setAccelerationGraph(String accelerationGraph) { this.accelerationGraph = accelerationGraph; }
 
-    public void setOximetryGraph(String oximetryGraph) {
-        this.oximetryGraph = oximetryGraph;
-    }
-
-    public String getTempGraph() {
-        return tempGraph;
-    }
-
-    public void setTempGraph(String tempGraph) {
-        this.tempGraph = tempGraph;
-    }
-
-    public String getAccelerationGraph() {
-        return accelerationGraph;
-    }
-
-    public void setAccelerationGraph(String accelerationGraph) {
-        this.accelerationGraph = accelerationGraph;
-    }
+    public String getBpmGraph() { return bpmGraph; }
+    public void setBpmGraph(String bpmGraph) { this.bpmGraph = bpmGraph; }
 }
